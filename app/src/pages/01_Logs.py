@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-BASE_URL = "http://localhost:8000"   # change if needed
+BASE_URL = "http://localhost:4000"   
 
 st.title("Log Workouts & Meals")
 
