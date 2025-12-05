@@ -59,21 +59,28 @@ if st.button("Act as Stephanie Huang, a gym member",
     logger.info("Logging in as Gym Member Persona")
     st.switch_page('pages/00_Member_Home.py')
 
-if st.button('Act as Mohammad, an USAID worker', 
+if st.button('Act as Jade Smith, a personal trainer', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
-    st.session_state['role'] = 'usaid_worker'
-    st.session_state['first_name'] = 'Mohammad'
-    st.switch_page('pages/10_USAID_Worker_Home.py')
+    st.session_state['role'] = 'trainer'
+    st.session_state['first_name'] = 'Jade'
+    st.switch_page('pages/10_Trainer_Home.py')
 
-if st.button('Act as System Administrator', 
+if st.button('Act as Jack Perez, a gym owner', 
             type = 'primary', 
             use_container_width=True):
     st.session_state['authenticated'] = True
-    st.session_state['role'] = 'administrator'
-    st.session_state['first_name'] = 'SysAdmin'
-    st.switch_page('pages/20_Admin_Home.py')
+    st.session_state['role'] = 'owner'
+    st.session_state['first_name'] = 'Jack'
+    st.switch_page('pages/20_Owner_Home.py')
 
+if st.button('Act as Sofia Martinez, a nutritionist', 
+            type = 'primary', 
+            use_container_width=True):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'nutritionist'
+    st.session_state['first_name'] = 'Sofia'
+    st.switch_page('pages/20_Nutritionist_Home.py')
 
 
