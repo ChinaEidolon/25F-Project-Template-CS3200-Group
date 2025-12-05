@@ -27,4 +27,4 @@ if st.button('View Client Food Logs & Nutrition Intake',
 if st.button(' View Nutrition Analytics', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/13_Nutrition_Analytics.py')
+  st.switch_page('pages/33_Nutrition_Analytics.py')
