@@ -6,11 +6,6 @@ BASE_URL = "http://localhost:4000"
 
 st.title("Nutritionist Meal Plans")
 
-# Ensure nutritionist is logged in
-nutritionist_id = st.session_state.get("nutritionist_id")
-if not nutritionist_id:
-    st.error("No nutritionist logged in. Please return to Home page.")
-    st.stop()
 
 st.write(f"Logged in as Nutritionist ID: {nutritionist_id}")
 
