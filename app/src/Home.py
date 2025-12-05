@@ -81,6 +81,6 @@ if st.button('Act as Sofia Martinez, a nutritionist',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'nutritionist'
     st.session_state['first_name'] = 'Sofia'
-    st.switch_page('pages/20_Nutritionist_Home.py')
+    st.switch_page('pages/30_Nutritionist_Home.py')
 
 

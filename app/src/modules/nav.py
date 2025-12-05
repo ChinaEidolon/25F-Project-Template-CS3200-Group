@@ -14,21 +14,24 @@ def AboutPageNav():
     st.sidebar.page_link("pages/40_About.py", label="About", icon="🧠")
 
 
-#### ------------------------ Examples for Role of pol_strat_advisor ------------------------
-def PolStratAdvHomeNav():
+#### ------------------------ Examples for Role of Gyme Member ------------------------
+def MemberHomeNav():
     st.sidebar.page_link(
         "pages/00_Member_Home.py", label="Member Home", icon="👤"
     )
 
-
-def WorldBankVizNav():
+def WorkoutsNav():
     st.sidebar.page_link(
-        "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
+        "pages/01_Workouts.py", label="Log Your Workouts", icon="🏦"
     )
 
+def ProgressNav():
+    st.sidebar.page_link("pages/02_Progress.py", label="Progress Analytics Dashboard", icon="🗺️")
 
-def MapDemoNav():
-    st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
+def MessageNav():
+    st.sidebar.page_link(
+        "pages/01_Message.py", label="Message Your Trainer", icon="🏦"
+    )
 
 
 ## ------------------------ Examples for Role of usaid_worker ------------------------
@@ -73,15 +76,29 @@ def AdminPageNav():
 
 ## ------------------------ Examples for Role of Nutritionist ------------------------
 
-def usaidWorkerHomeNav():
+def NutritionistHomeNav():
     st.sidebar.page_link(
       "pages/30_Nutritionist_Home.py", label="Nutritionist Home", icon="🏠"
     )
 
+def MealPlansNav():
+    st.sidebar.page_link(
+        "pages/31_Meal_Plans.py", label="Manage Meal Plans", icon="🏦"
+    )
+
+def FoodLogsNav():
+    st.sidebar.page_link(
+        "pages/32_Food_Logs.py", label="View Food Logs & Nutrition", icon="🏦"
+    )
+
+def NutritionNav():
+    st.sidebar.page_link(
+        "pages/33_Nutrition_Analytics.py", label="Nutrition Dashboard", icon="🏦"
+    )
 
 
 
-# --------------------------------Links Function -----------------------------------------------
+# -------------------------------- Links Function -----------------------------------------------
 def SideBarLinks(show_home=False):
     """
     This function handles adding links to the sidebar of the app based upon the logged-in user's role, which was put in the streamlit session_state object when logging in.
@@ -104,9 +121,10 @@ def SideBarLinks(show_home=False):
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "pol_strat_advisor":
-            PolStratAdvHomeNav()
-            WorldBankVizNav()
-            MapDemoNav()
+            MemberHomeNav()
+            WorkoutsNav()
+            ProgressNav()
+            MessageNav()
 
         # If the user role is usaid worker, show the Api Testing page
         if st.session_state["role"] == "usaid_worker":
@@ -116,6 +134,13 @@ def SideBarLinks(show_home=False):
             PredictionNav()
             ApiTestNav()
             ClassificationNav()
+
+        # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
+        if st.session_state["role"] == "pol_strat_advisor":
+            NutritionistHomeNav()
+            MealPlansNav()
+            FoodLogsNav()
+            NutritionNav()
             
 
         # If the user is an administrator, give them access to the administrator pages

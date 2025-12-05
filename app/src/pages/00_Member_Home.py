@@ -24,7 +24,7 @@ if st.button('View Progress',
              use_container_width=True):
   st.switch_page('pages/02_Progress.py')
 
-if st.button('View Class Schedule', 
+if st.button('Message Trainer', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/03_Class_Schedule.py')
+  st.switch_page('pages/03_Message.py')
