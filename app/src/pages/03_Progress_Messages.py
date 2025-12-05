@@ -6,7 +6,11 @@ import matplotlib.pyplot as plt
 BASE_URL = "http://localhost:4000"
 
 st.title("Progress Tracking & Messaging")
+member_id = st.session_state.get("member_id")
 
+if not member_id:
+    st.error("No member logged in. Please return to Home page.")
+    st.stop()
 
 
 # PROGRESS 
