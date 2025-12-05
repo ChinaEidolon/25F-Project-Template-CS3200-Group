@@ -7,8 +7,6 @@ BASE_URL = "http://localhost:4000"
 st.title("Nutritionist Meal Plans")
 
 
-st.write(f"Logged in as Nutritionist ID: {nutritionist_id}")
-
 # Get active members
 @st.cache_data
 def get_active_members():
