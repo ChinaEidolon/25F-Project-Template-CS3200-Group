@@ -122,7 +122,7 @@ def update_member(member_id):
         if not cursor.fetchone():
             return jsonify({"error": "Member not found"}), 404
         
-        # Build update query dynamically based on provided fields
+        # Build update query based on fields
         update_fields = []
         params = []
         allowed_fields = ["first_name", "last_name", "email", "trainer_id", "nutritionist_id", "status"]
@@ -229,7 +229,7 @@ def update_goal(goal_id):
         if not cursor.fetchone():
             return jsonify({"error": "Goal not found"}), 404
         
-        # Build update query dynamically
+        # Build update query 
         update_fields = []
         params = []
         allowed_fields = ["target_value", "current_value", "deadline", "goal_type"]
@@ -402,7 +402,7 @@ def update_progress(progress_id):
         if not cursor.fetchone():
             return jsonify({"error": "Progress entry not found"}), 404
         
-        # Build update query dynamically
+        # Build update query 
         update_fields = []
         params = []
         allowed_fields = ["weight", "body_fat_percentage", "measurements", "photos"]
@@ -526,7 +526,7 @@ def update_workout_plan(plan_id):
         if not cursor.fetchone():
             return jsonify({"error": "Workout plan not found"}), 404
         
-        # Build update query dynamically
+        # Build update query 
         update_fields = []
         params = []
         allowed_fields = ["plan_date", "goals", "plan_name", "status"]
@@ -641,7 +641,7 @@ def update_message(message_id):
         if not cursor.fetchone():
             return jsonify({"error": "Message not found"}), 404
         
-        # Build update query dynamically
+        # Build update query 
         update_fields = []
         params = []
         allowed_fields = ["read_status"]
