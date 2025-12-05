@@ -14,17 +14,17 @@ st.write('')
 st.write('')
 st.write('### What would you like to do today?')
 
-if st.button('View Workouts', 
+if st.button('Log Workouts & Meals', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/01_Workouts.py')
+  st.switch_page('pages/01_Logs.py')
 
-if st.button('View Progress', 
+if st.button('View Workout & Meal Plans', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/02_Progress.py')
+  st.switch_page('pages/02_Plans.py')
 
-if st.button('Message Trainer', 
+if st.button('Progress Tracking & Messaging', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/03_Messages.py')
+  st.switch_page('pages/03_Progress_Messages.py')

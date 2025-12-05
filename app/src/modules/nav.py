@@ -14,23 +14,23 @@ def AboutPageNav():
     st.sidebar.page_link("pages/40_About.py", label="About", icon="🧠")
 
 
-#### ------------------------ Examples for Role of Gyme Member ------------------------
+#### ------------------------ Examples for Role of Gym Member ------------------------
 def MemberHomeNav():
     st.sidebar.page_link(
         "pages/00_Member_Home.py", label="Member Home", icon="👤"
     )
 
-def WorkoutsNav():
+def LogsNav():
     st.sidebar.page_link(
-        "pages/01_Workouts.py", label="Log Your Workouts", icon="🏦"
+        "pages/01_Logs.py", label="Log Workouts & Meals", icon="🏦"
     )
 
-def ProgressNav():
-    st.sidebar.page_link("pages/02_Progress.py", label="Progress Analytics Dashboard", icon="🗺️")
+def PlansNav():
+    st.sidebar.page_link("pages/02_Plans.py", label="View Workout & Meal Plans", icon="🗺️")
 
-def MessageNav():
+def ProgMessNav():
     st.sidebar.page_link(
-        "pages/03_Messages.py", label="Message Your Trainer", icon="🏦"
+        "pages/03_Progress_Messages.py", label="Progress Tracking & Messaging", icon="🏦"
     )
 
 
@@ -122,9 +122,9 @@ def SideBarLinks(show_home=False):
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "pol_strat_advisor":
             MemberHomeNav()
-            WorkoutsNav()
-            ProgressNav()
-            MessageNav()
+            LogsNav()
+            PlansNav()
+            ProgMessNav()
 
         # If the user role is usaid worker, show the Api Testing page
         if st.session_state["role"] == "usaid_worker":

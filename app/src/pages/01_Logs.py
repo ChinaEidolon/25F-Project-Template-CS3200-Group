@@ -1,41 +1,67 @@
-import logging
-logger = logging.getLogger(__name__)
-import pandas as pd
 import streamlit as st
-from streamlit_extras.app_logo import add_logo
-import world_bank_data as wb
-import matplotlib.pyplot as plt
-import numpy as np
-import plotly.express as px
-from modules.nav import SideBarLinks
+import requests
 
-# Call the SideBarLinks from the nav module in the modules directory
-SideBarLinks()
+BASE_URL = "http://localhost:8000"   # change if needed
 
-# set the header of the page
-st.header('Workouts')
+st.title("Log Workouts & Meals")
 
-# You can access the session state to make a more customized/personalized app experience
-st.write(f"### Hi, {st.session_state['first_name']}.")
+# Retrieve current member_id from session
+member_id = st.session_state.get("member_id")
 
-# get the countries from the world bank data
-with st.echo(code_location='above'):
-    countries:pd.DataFrame = wb.get_countries()
-   
-    st.dataframe(countries)
+if not member_id:
+    st.error("No member logged in. Please return to Home page.")
+    st.stop()
 
-# the with statment shows the code for this block above it 
-with st.echo(code_location='above'):
-    arr = np.random.normal(1, 1, size=100)
-    test_plot, ax = plt.subplots()
-    ax.hist(arr, bins=20)
+st.header("Log a Workout")
 
-    st.pyplot(test_plot)
+with st.form("log_workout_form"):
+    workout_date = st.date_input("Workout Date")
+    notes = st.text_area("Notes (optional)")
+    sessions = st.number_input("Session Count", min_value=1, value=1)
+    
+    submitted = st.form_submit_button("Log Workout")
+    if submitted:
+        payload = {
+            "workout_date": str(workout_date),
+            "notes": notes,
+            "sessions": sessions
+        }
+        r = requests.post(f"{BASE_URL}/members/{member_id}/workout-logs", json=payload)
+        
+        if r.status_code == 201:
+            st.success("Workout logged successfully!")
+        else:
+            st.error("Failed to log workout.")
 
 
-with st.echo(code_location='above'):
-    slim_countries = countries[countries['incomeLevel'] != 'Aggregates']
-    data_crosstab = pd.crosstab(slim_countries['region'], 
-                                slim_countries['incomeLevel'],  
-                                margins = False) 
-    st.table(data_crosstab)
+st.header("Log a Meal")
+
+with st.form("log_meal_form"):
+    food = st.text_input("Food Name")
+    portion_size = st.text_input("Portion Size (optional)")
+    calories = st.number_input("Calories", min_value=0, value=0)
+    proteins = st.number_input("Protein (g)", min_value=0, value=0)
+    carbs = st.number_input("Carbs (g)", min_value=0, value=0)
+    fats = st.number_input("Fats (g)", min_value=0, value=0)
+    log_time = st.datetime_input("Log Timestamp")
+
+    submitted = st.form_submit_button("Log Meal")
+    
+    if submitted:
+        payload = {
+            "member_id": member_id,
+            "food": food,
+            "portion_size": portion_size,
+            "calories": calories,
+            "proteins": proteins,
+            "carbs": carbs,
+            "fats": fats,
+            "log_timestamp": str(log_time)
+        }
+
+        r = requests.post(f"{BASE_URL}/food-logs", json=payload)
+
+        if r.status_code == 201:
+            st.success("Meal logged successfully!")
+        else:
+            st.error("Failed to log meal.")
