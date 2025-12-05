@@ -30,7 +30,7 @@ def ProgressNav():
 
 def MessageNav():
     st.sidebar.page_link(
-        "pages/01_Message.py", label="Message Your Trainer", icon="🏦"
+        "pages/03_Messages.py", label="Message Your Trainer", icon="🏦"
     )
 
 
