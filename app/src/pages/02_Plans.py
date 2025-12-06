@@ -2,7 +2,8 @@ import streamlit as st
 import requests
 import pandas as pd
 
-BASE_URL = "http://localhost:4000"
+BASE_URL = "http://api:4000"  #
+
 
 st.title("View Workout & Meal Plans")
 member_id = st.session_state.get("member_id")
