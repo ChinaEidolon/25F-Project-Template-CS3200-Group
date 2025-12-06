@@ -266,3 +266,4 @@ INSERT INTO INVOICE (member_id, trainer_id, amount, date_issued, status, categor
 INSERT INTO PAYMENT (invoice_id, paid_date, card_details, bank_info) VALUES
 (1, '2024-11-02', 'Visa ending in 1234', NULL),
 (2, '2024-11-03', 'Mastercard ending in 5678', NULL);
+

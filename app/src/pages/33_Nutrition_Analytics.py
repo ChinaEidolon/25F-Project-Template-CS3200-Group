@@ -1,28 +1,51 @@
 import streamlit as st
 import requests
-import pandas as pd
+import pandas as p
+import traceback
+import logging
+logging.basicConfig(format='%(filename)s:%(lineno)s:%(levelname)s -- %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 BASE_URL = "http://localhost:4000"
 
 st.title("Nutritionist Progress Dashboard")
 
+logger.info("NUTRA LOAF BABY")
+
+
 # Get active members 
 @st.cache_data
 def get_active_members():
     try:
+        logger.info("Getting active members")
         r = requests.get(f"{BASE_URL}/members", params={"status": "active"})
+        logger.info("hello guy")
+
         if r.status_code == 200:
+            print("hello")
             return r.json()
+        print("goodbye")
         return []
-    except Exception:
+
+    except Exception as e:
+        # print("Error in get_active_members:", e)
+
+        # Print full traceback (very helpful for debugging)
+        traceback.print_exc()
+
+
         return []
 
 members = get_active_members()
+
+
 if not members:
+    print("hello2")
     st.warning("No active members found or failed to load members.")
     st.stop()
 
 def format_member(m):
+    print("hello3")
     return f"{m.get('first_name','')} {m.get('last_name','')} (ID {m.get('member_id')})"
 
 selected_member = st.selectbox(
@@ -96,3 +119,7 @@ if logs:
         st.caption("More meals logged per day generally indicates better adherence.")
 else:
     st.info("No food logs yet for this member, so adherence cannot be calculated.")
+
+
+
+

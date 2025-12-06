@@ -10,6 +10,7 @@ members = Blueprint('members', __name__)
 @members.route('/members', methods=['GET'])
 def get_all_members():
     try:
+        print("error check in member_routes.py")
         current_app.logger.info('Starting get_all_members request')
         cursor = db.get_db().cursor()
         
