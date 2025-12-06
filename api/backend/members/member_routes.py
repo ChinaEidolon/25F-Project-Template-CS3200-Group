@@ -54,7 +54,7 @@ def get_member(member_id):
         cursor = db.get_db().cursor()
 
         # Get member details
-        query = "SELECT * FROM GYM WHERE member_id = %s"
+        query = "SELECT * FROM GYM_MEMBER WHERE member_id = %s"
         cursor.execute(query, (member_id,))
         member = cursor.fetchone()
         
