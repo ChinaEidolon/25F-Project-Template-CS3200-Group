@@ -11,31 +11,34 @@ def HomeNav():
 
 
 def AboutPageNav():
-    st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
+    st.sidebar.page_link("pages/40_About.py", label="About", icon="🧠")
 
 
-#### ------------------------ Examples for Role of pol_strat_advisor ------------------------
-def PolStratAdvHomeNav():
+#### ------------------------ Examples for Role of Gym Member ------------------------
+def MemberHomeNav():
     st.sidebar.page_link(
-        "pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon="👤"
+        "pages/00_Member_Home.py", label="Member Home", icon="👤"
     )
 
-
-def WorldBankVizNav():
+def LogsNav():
     st.sidebar.page_link(
-        "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
+        "pages/01_Logs.py", label="Log Workouts & Meals", icon="🏦"
     )
 
+def PlansNav():
+    st.sidebar.page_link("pages/02_Plans.py", label="View Workout & Meal Plans", icon="🗺️")
 
-def MapDemoNav():
-    st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
+def ProgMessNav():
+    st.sidebar.page_link(
+        "pages/03_Progress_Messages.py", label="Progress Tracking & Messaging", icon="🏦"
+    )
 
 
 ## ------------------------ Examples for Role of usaid_worker ------------------------
 
 def usaidWorkerHomeNav():
     st.sidebar.page_link(
-      "pages/10_USAID_Worker_Home.py", label="USAID Worker Home", icon="🏠"
+      "pages/10_Trainer_Home.py", label="Trainer Home", icon="🏠"
     )
 
 def NgoDirectoryNav():
@@ -63,13 +66,39 @@ def ClassificationNav():
 
 #### ------------------------ System Admin Role ------------------------
 def AdminPageNav():
-    st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon="🖥️")
+    st.sidebar.page_link("pages/20_Owner_Home.py", label="Owner Home", icon="🖥️")
     st.sidebar.page_link(
         "pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢"
     )
 
 
-# --------------------------------Links Function -----------------------------------------------
+
+
+## ------------------------ Examples for Role of Nutritionist ------------------------
+
+def NutritionistHomeNav():
+    st.sidebar.page_link(
+      "pages/30_Nutritionist_Home.py", label="Nutritionist Home", icon="🏠"
+    )
+
+def MealPlansNav():
+    st.sidebar.page_link(
+        "pages/31_Meal_Plans.py", label="Manage Meal Plans", icon="🏦"
+    )
+
+def FoodLogsNav():
+    st.sidebar.page_link(
+        "pages/32_Food_Logs.py", label="View Food Logs & Nutrition", icon="🏦"
+    )
+
+def NutritionNav():
+    st.sidebar.page_link(
+        "pages/33_Nutrition_Analytics.py", label="Nutrition Dashboard", icon="🏦"
+    )
+
+
+
+# -------------------------------- Links Function -----------------------------------------------
 def SideBarLinks(show_home=False):
     """
     This function handles adding links to the sidebar of the app based upon the logged-in user's role, which was put in the streamlit session_state object when logging in.
@@ -92,9 +121,10 @@ def SideBarLinks(show_home=False):
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "pol_strat_advisor":
-            PolStratAdvHomeNav()
-            WorldBankVizNav()
-            MapDemoNav()
+            MemberHomeNav()
+            LogsNav()
+            PlansNav()
+            ProgMessNav()
 
         # If the user role is usaid worker, show the Api Testing page
         if st.session_state["role"] == "usaid_worker":
@@ -104,6 +134,13 @@ def SideBarLinks(show_home=False):
             PredictionNav()
             ApiTestNav()
             ClassificationNav()
+
+        # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
+        if st.session_state["role"] == "pol_strat_advisor":
+            NutritionistHomeNav()
+            MealPlansNav()
+            FoodLogsNav()
+            NutritionNav()
             
 
         # If the user is an administrator, give them access to the administrator pages
