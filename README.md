@@ -136,10 +136,10 @@ _Note_: This project only contains the infrastructure for a hypothetical ML mode
 
 ## Team Members
 **Team SELECT**
-- Victoria Charry (charry.vi@northeastern.edu) - Point Person
-- Sonali Chainani (chainani.s@northeastern.edu)
-- Zayda Kodua (kodua.z@northeastern.edu)
-- Hengrui Liang (liang.hen@northeastern.edu)
+- Victoria Charry 
+- Sonali Chainani 
+- Zayda Kodua 
+- Hengrui Liang 
 
 ## Project Overview
 
@@ -152,8 +152,11 @@ SOMA is a fitness and nutrition management platform designed to centralize healt
 
 ## Accessing the Application
 - **MySQL Database**: localhost:3306
-  - Username: root
-  - Password: t3ams3l3ct
+  - DB_USER: root
+  - DB_HOST: db
+  - DB_PORT: 3306
+  - DB_NAME: gym_management
+  - MYSQL_ROOT_PASSWORD: t3ams3l3ct
 
 ## Using the Application
 1. . On the home page, select a user role to log in as:
@@ -161,9 +164,7 @@ SOMA is a fitness and nutrition management platform designed to centralize healt
    - Personal Trainer (Jade Smith)
    - Gym Manager (Jack Perez)
    - Nutritionist (Sofia Martinez)
-2. . Each role provides access to different features and pages relevant to that persona
-
-## Contributing
+2. Each role provides access to different features and pages relevant to that persona
 
 This project is developed as part of CS 3200 - Introduction to Databases at Northeastern University, Fall 2025.
 
