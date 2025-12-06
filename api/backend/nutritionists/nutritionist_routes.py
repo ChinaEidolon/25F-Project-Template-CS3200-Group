@@ -28,7 +28,7 @@ def get_all_nutritionists():
         return jsonify({"error": str(e)}), 500
 
 # GET specific nutritionist profile
-@nutritionists.route('/nutritionists/<int:nutritionist_id>', methods=['GET'])
+@nutritionists.route('/<int:nutritionist_id>', methods=['GET'])
 def get_nutritionist(nutritionist_id):
     try:
         cursor = db.get_db().cursor()
@@ -86,7 +86,7 @@ def create_nutritionist():
         return jsonify({"error": str(e)}), 500
 
 # PUT - Update nutritionist profile
-@nutritionists.route('/nutritionists/<int:nutritionist_id>', methods=['PUT'])
+@nutritionists.route('/<int:nutritionist_id>', methods=['PUT'])
 def update_nutritionist(nutritionist_id):
     try:
         data = request.get_json()
