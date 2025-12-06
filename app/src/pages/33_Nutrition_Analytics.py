@@ -6,7 +6,6 @@ BASE_URL = "http://localhost:4000"
 
 st.title("Nutritionist Progress Dashboard")
 
-
 # Get active members 
 @st.cache_data
 def get_active_members():

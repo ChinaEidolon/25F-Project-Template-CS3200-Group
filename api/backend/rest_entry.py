@@ -8,6 +8,7 @@ from backend.db_connection import db
 from backend.simple.simple_routes import simple_routes
 from backend.ngos.ngo_routes import ngos
 from backend.members.member_routes import members
+from backend.nutritionists.nutritionist_routes import nutritionists
 
 def create_app():
     app = Flask(__name__)
@@ -52,6 +53,7 @@ def create_app():
     app.register_blueprint(simple_routes)
     app.register_blueprint(ngos, url_prefix="/ngo")
     app.register_blueprint(members)
+    app.register_blueprint(nutritionists)
 
     # Don't forget to return the app object
     return app
