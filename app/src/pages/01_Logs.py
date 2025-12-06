@@ -5,7 +5,6 @@ BASE_URL = "http://localhost:4000"
 
 st.title("Log Workouts & Meals")
 
-# Retrieve current member_id from session
 member_id = st.session_state.get("member_id")
 
 if not member_id:
