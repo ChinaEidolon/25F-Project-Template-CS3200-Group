@@ -84,7 +84,7 @@ def create_member():
         # Insert new member
         query = """
         INSERT INTO gym_member (first_name, last_name, email, trainer_id, nutritionist_id, status)
-        VALUES (%s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,
