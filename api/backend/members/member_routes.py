@@ -47,7 +47,7 @@ def get_all_members():
         return jsonify({"error": str(e)}), 500
 
 # GET specific member profile
-@members.route('/<int:member_id>', methods=['GET'])
+@members.route('/members/<int:member_id>', methods=['GET'])
 def get_member(member_id):
     try:
         cursor = db.get_db().cursor()
@@ -111,7 +111,7 @@ def create_member():
 
 # Update an existing member's information
 # Can update any field except member_id
-@members.route('/<int:member_id>', methods=['PUT'])
+@members.route('/members/<int:member_id>', methods=['PUT'])
 def update_member(member_id):
     try:
         data = request.get_json()
@@ -147,7 +147,7 @@ def update_member(member_id):
         return jsonify({"error": str(e)}), 500
 
 # DELETE - Deactivate member (soft delete)
-@members.route('/<int:member_id>', methods=['DELETE'])
+@members.route('/members/<int:member_id>', methods=['DELETE'])
 def deactivate_member(member_id):
     try:
         cursor = db.get_db().cursor()
@@ -162,7 +162,7 @@ def deactivate_member(member_id):
 
 # GOALS commands
 # GET all goals for a member
-@members.route('/<int:member_id>/goals', methods=['GET'])
+@members.route('/members/<int:member_id>/goals', methods=['GET'])
 def get_member_goals(member_id):
     try:
         cursor = db.get_db().cursor()
@@ -177,7 +177,7 @@ def get_member_goals(member_id):
 
 # POST - Create new goal
 # Required fields: goal_type, target_value
-@members.route('/<int:member_id>/goals', methods=['POST'])
+@members.route('/members/<int:member_id>/goals', methods=['POST'])
 def create_goal(member_id):
     try:
         data = request.get_json()
@@ -268,7 +268,7 @@ def delete_goal(goal_id):
 
 # WORKOUT LOGS commands
 # GET workout logs for a member
-@members.route('/<int:member_id>/workout-logs', methods=['GET'])
+@members.route('/members/<int:member_id>/workout-logs', methods=['GET'])
 def get_workout_logs(member_id):
     try:
         cursor = db.get_db().cursor()
@@ -287,7 +287,7 @@ def get_workout_logs(member_id):
 
 # POST - Log new workout
 # Required fields: workout_date
-@members.route('/<int:member_id>/workout-logs', methods=['POST'])
+@members.route('/members/<int:member_id>/workout-logs', methods=['POST'])
 def create_workout_log(member_id):
     try:
         data = request.get_json()
@@ -330,7 +330,7 @@ def create_workout_log(member_id):
 
 # PROGRESS commands
 # GET progress for a member
-@members.route('/<int:member_id>/progress', methods=['GET'])
+@members.route('/members/<int:member_id>/progress', methods=['GET'])
 def get_progress(member_id):
     try:
         cursor = db.get_db().cursor()
@@ -349,7 +349,7 @@ def get_progress(member_id):
 
 # POST - Create new progress entry
 # Required fields: progress_date
-@members.route('/<int:member_id>/progress', methods=['POST'])
+@members.route('/members/<int:member_id>/progress', methods=['POST'])
 def create_progress(member_id):
     try:
         data = request.get_json()
@@ -442,7 +442,7 @@ def delete_progress(progress_id):
     
 # WORKOUT PLANS commands
 # GET workout plans for a member
-@members.route('/<int:member_id>/workout-plans', methods=['GET'])
+@members.route('/members/<int:member_id>/workout-plans', methods=['GET'])
 def get_workout_plans(member_id):
     try:
         cursor = db.get_db().cursor()
@@ -474,7 +474,7 @@ def get_workout_plan(plan_id):
 
 # POST - Create new workout plan
 # Required fields: plan_date
-@members.route('/<int:member_id>/workout-plans', methods=['POST'])
+@members.route('/members/<int:member_id>/workout-plans', methods=['POST'])
 def create_workout_plan(member_id):
     try:
         data = request.get_json()
@@ -552,7 +552,7 @@ def update_workout_plan(plan_id):
 
 # MESSAGES commands
 # GET messages for a member
-@members.route('/<int:member_id>/messages', methods=['GET'])
+@members.route('/members/<int:member_id>/messages', methods=['GET'])
 def get_member_messages(member_id):
     try:
         cursor = db.get_db().cursor()
@@ -590,7 +590,7 @@ def get_message(message_id):
 
 # POST - Send new message
 # Required fields: content
-@members.route('/<int:member_id>/messages', methods=['POST'])
+@members.route('/members/<int:member_id>/messages', methods=['POST'])
 def create_message(member_id):
     try:
         data = request.get_json()
