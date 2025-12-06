@@ -1,6 +1,4 @@
--- ============================================
--- Part C: Sample data
--- ============================================
+USE gym_management;
 
 INSERT INTO TRAINER (first_name, last_name) VALUES
 ('John',     'Smith'),

@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 
-BASE_URL = "http://localhost:4000"
+BASE_URL = "http://api:4000" 
 
 st.title("Progress Tracking & Messaging")
 member_id = st.session_state.get("member_id")

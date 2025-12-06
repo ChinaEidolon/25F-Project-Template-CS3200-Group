@@ -54,7 +54,7 @@ def get_member(member_id):
         cursor = db.get_db().cursor()
 
         # Get member details
-        query = "SELECT * FROM gym_member WHERE member_id = %s"
+        query = "SELECT * FROM GYM WHERE member_id = %s"
         cursor.execute(query, (member_id,))
         member = cursor.fetchone()
         
@@ -84,8 +84,8 @@ def create_member():
         
         # Insert new member
         query = """
-        INSERT INTO gym_member (first_name, last_name, email, trainer_id, nutritionist_id, status)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO GYM_MEMBER (first_name, last_name, email, trainer_id, nutritionist_id, status)
+        VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,
@@ -119,7 +119,7 @@ def update_member(member_id):
         
         # Check if member exists
         cursor = db.get_db().cursor()
-        cursor.execute("SELECT * FROM gym_member WHERE member_id = %s", (member_id,))
+        cursor.execute("SELECT * FROM GYM_MEMBER WHERE member_id = %s", (member_id,))
         if not cursor.fetchone():
             return jsonify({"error": "Member not found"}), 404
         
@@ -137,7 +137,7 @@ def update_member(member_id):
             return jsonify({"error": "No valid fields to update"}), 400
         
         params.append(member_id)
-        query = f"UPDATE gym_member SET {', '.join(update_fields)} WHERE member_id = %s"
+        query = f"UPDATE GYM_MEMBER SET {', '.join(update_fields)} WHERE member_id = %s"
         
         cursor.execute(query, params)
         db.get_db().commit()
@@ -152,7 +152,7 @@ def update_member(member_id):
 def deactivate_member(member_id):
     try:
         cursor = db.get_db().cursor()
-        query = "UPDATE gym_member SET status = 'cancelled' WHERE member_id = %s"
+        query = "UPDATE GYM_MEMBER SET status = 'cancelled' WHERE member_id = %s"
         cursor.execute(query, (member_id,))
         db.get_db().commit()
         cursor.close()
@@ -274,7 +274,7 @@ def get_workout_logs(member_id):
     try:
         cursor = db.get_db().cursor()
         query = """
-            SELECT * FROM workout_log 
+            SELECT * FROM WORKOUT_LOG
             WHERE member_id = %s 
             ORDER BY workout_date DESC
         """
@@ -303,7 +303,7 @@ def create_workout_log(member_id):
         
         # Insert new workout log
         query = """
-        INSERT INTO workout_log (member_id, trainer_id, workout_date, notes, sessions)
+        INSERT INTO WORKOUT_LOG (member_id, trainer_id, workout_date, notes, sessions)
         VALUES (%s, %s, %s, %s, %s)
         """
         cursor.execute(
@@ -336,7 +336,7 @@ def get_progress(member_id):
     try:
         cursor = db.get_db().cursor()
         query = """
-            SELECT * FROM progress 
+            SELECT * FROM PROGRESS 
             WHERE member_id = %s 
             ORDER BY progress_date DESC
         """
@@ -365,7 +365,7 @@ def create_progress(member_id):
         
         # Insert new progress entry
         query = """
-        INSERT INTO progress (member_id, progress_date, weight, body_fat_percentage, measurements, photos)
+        INSERT INTO PROGRESS (member_id, progress_date, weight, body_fat_percentage, measurements, photos)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
@@ -399,7 +399,7 @@ def update_progress(progress_id):
         
         # Check if progress entry exists
         cursor = db.get_db().cursor()
-        cursor.execute("SELECT * FROM progress WHERE progress_id = %s", (progress_id,))
+        cursor.execute("SELECT * FROM PROGRESS WHERE progress_id = %s", (progress_id,))
         if not cursor.fetchone():
             return jsonify({"error": "Progress entry not found"}), 404
         
@@ -417,7 +417,7 @@ def update_progress(progress_id):
             return jsonify({"error": "No valid fields to update"}), 400
         
         params.append(progress_id)
-        query = f"UPDATE progress SET {', '.join(update_fields)} WHERE progress_id = %s"
+        query = f"UPDATE PROGRESS SET {', '.join(update_fields)} WHERE progress_id = %s"
         
         cursor.execute(query, params)
         db.get_db().commit()
@@ -432,7 +432,7 @@ def update_progress(progress_id):
 def delete_progress(progress_id):
     try:
         cursor = db.get_db().cursor()
-        query = "DELETE FROM progress WHERE progress_id = %s"
+        query = "DELETE FROM PROGRESS WHERE progress_id = %s"
         cursor.execute(query, (progress_id,))
         db.get_db().commit()
         cursor.close()
@@ -447,7 +447,7 @@ def delete_progress(progress_id):
 def get_workout_plans(member_id):
     try:
         cursor = db.get_db().cursor()
-        query = "SELECT * FROM workout_plan WHERE member_id = %s ORDER BY plan_date DESC"
+        query = "SELECT * FROM WORKOUT_PLAN WHERE member_id = %s ORDER BY plan_date DESC"
         cursor.execute(query, (member_id,))
         plans = cursor.fetchall()
         cursor.close()
@@ -461,7 +461,7 @@ def get_workout_plans(member_id):
 def get_workout_plan(plan_id):
     try:
         cursor = db.get_db().cursor()
-        query = "SELECT * FROM workout_plan WHERE plan_id = %s"
+        query = "SELECT * FROM WORKOUT_PLAN WHERE plan_id = %s"
         cursor.execute(query, (plan_id,))
         plan = cursor.fetchone()
         cursor.close()
@@ -490,7 +490,7 @@ def create_workout_plan(member_id):
         
         # Insert new workout plan
         query = """
-        INSERT INTO workout_plan (member_id, plan_name, goals, plan_date, status)
+        INSERT INTO WORKOUT_PLAN (member_id, plan_name, goals, plan_date, status)
         VALUES (%s, %s, %s, %s, %s)
         """
         cursor.execute(
@@ -523,7 +523,7 @@ def update_workout_plan(plan_id):
         
         # Check if workout plan exists
         cursor = db.get_db().cursor()
-        cursor.execute("SELECT * FROM workout_plan WHERE plan_id = %s", (plan_id,))
+        cursor.execute("SELECT * FROM WORKOUT_PLAN WHERE plan_id = %s", (plan_id,))
         if not cursor.fetchone():
             return jsonify({"error": "Workout plan not found"}), 404
         
@@ -541,7 +541,7 @@ def update_workout_plan(plan_id):
             return jsonify({"error": "No valid fields to update"}), 400
         
         params.append(plan_id)
-        query = f"UPDATE workout_plan SET {', '.join(update_fields)} WHERE plan_id = %s"
+        query = f"UPDATE WORKOUT_PLAN SET {', '.join(update_fields)} WHERE plan_id = %s"
         
         cursor.execute(query, params)
         db.get_db().commit()
