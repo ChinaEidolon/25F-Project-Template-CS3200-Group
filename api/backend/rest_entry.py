@@ -52,8 +52,8 @@ def create_app():
     app.logger.info("create_app(): registering blueprints with Flask app object.")
     app.register_blueprint(simple_routes)
     app.register_blueprint(ngos, url_prefix="/ngo")
-    app.register_blueprint(members)
-    app.register_blueprint(nutritionists)
+    app.register_blueprint(members, url_prefix="/members")
+    app.register_blueprint(nutritionists, url_prefix="/nutritionists")
 
     # Don't forget to return the app object
     return app
