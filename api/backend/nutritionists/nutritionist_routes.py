@@ -14,7 +14,7 @@ def get_all_nutritionists():
         cursor = db.get_db().cursor()
         
         # Prepare the Base query
-        query = "SELECT * FROM nutritionist"
+        query = "SELECT * FROM NUTRITIONIST"
         
         current_app.logger.debug(f'Executing query: {query}')
         cursor.execute(query)
@@ -34,7 +34,7 @@ def get_nutritionist(nutritionist_id):
         cursor = db.get_db().cursor()
         
         # Get nutritionist details
-        query = "SELECT * FROM nutritionist WHERE nutritionist_id = %s"
+        query = "SELECT * FROM NUTRITIONIST WHERE nutritionist_id = %s"
         cursor.execute(query, (nutritionist_id,))
         nutritionist = cursor.fetchone()
         
@@ -63,7 +63,7 @@ def create_nutritionist():
         
         # Insert new nutritionist
         query = """
-        INSERT INTO nutritionist (first_name, last_name)
+        INSERT INTO NUTRITIONIST (first_name, last_name)
         VALUES (%s, %s)
         """
         cursor.execute(
@@ -93,7 +93,7 @@ def update_nutritionist(nutritionist_id):
         
         # Check if nutritionist exists
         cursor = db.get_db().cursor()
-        cursor.execute("SELECT * FROM nutritionist WHERE nutritionist_id = %s", (nutritionist_id,))
+        cursor.execute("SELECT * FROM NUTRITIONIST WHERE nutritionist_id = %s", (nutritionist_id,))
         if not cursor.fetchone():
             return jsonify({"error": "Nutritionist not found"}), 404
         
@@ -111,7 +111,7 @@ def update_nutritionist(nutritionist_id):
             return jsonify({"error": "No valid fields to update"}), 400
         
         params.append(nutritionist_id)
-        query = f"UPDATE nutritionist SET {', '.join(update_fields)} WHERE nutritionist_id = %s"
+        query = f"UPDATE NUTRITIONIST SET {', '.join(update_fields)} WHERE nutritionist_id = %s"
         
         cursor.execute(query, params)
         db.get_db().commit()
@@ -132,7 +132,7 @@ def get_meal_plans():
         # Filter (members)
         member_id = request.args.get('member_id')
         
-        query = "SELECT * FROM meal_plan WHERE 1=1"
+        query = "SELECT * FROM MEAL_PLAN WHERE 1=1"
         params = []
         
         if member_id:
@@ -154,7 +154,7 @@ def get_meal_plans():
 def get_meal_plan(plan_id):
     try:
         cursor = db.get_db().cursor()
-        query = "SELECT * FROM meal_plan WHERE plan_id = %s"
+        query = "SELECT * FROM MEAL_PLAN WHERE plan_id = %s"
         cursor.execute(query, (plan_id,))
         plan = cursor.fetchone()
         cursor.close()
@@ -183,7 +183,7 @@ def create_meal_plan():
         
         # Insert new meal plan
         query = """
-        INSERT INTO meal_plan (member_id, calorie_goals, macro_goals, plan_date)
+        INSERT INTO MEAL_PLAN (member_id, calorie_goals, macro_goals, plan_date)
         VALUES (%s, %s, %s, %s)
         """
         cursor.execute(
@@ -215,7 +215,7 @@ def update_meal_plan(plan_id):
         
         # Check if meal plan exists
         cursor = db.get_db().cursor()
-        cursor.execute("SELECT * FROM meal_plan WHERE plan_id = %s", (plan_id,))
+        cursor.execute("SELECT * FROM MEAL_PLAN WHERE plan_id = %s", (plan_id,))
         if not cursor.fetchone():
             return jsonify({"error": "Meal plan not found"}), 404
         
@@ -233,7 +233,7 @@ def update_meal_plan(plan_id):
             return jsonify({"error": "No valid fields to update"}), 400
         
         params.append(plan_id)
-        query = f"UPDATE meal_plan SET {', '.join(update_fields)} WHERE plan_id = %s"
+        query = f"UPDATE MEAL_PLAN SET {', '.join(update_fields)} WHERE plan_id = %s"
         
         cursor.execute(query, params)
         db.get_db().commit()
@@ -248,7 +248,7 @@ def update_meal_plan(plan_id):
 def delete_meal_plan(plan_id):
     try:
         cursor = db.get_db().cursor()
-        cursor.execute("DELETE FROM meal_plan WHERE plan_id = %s", (plan_id,))
+        cursor.execute("DELETE FROM MEAL_PLAN WHERE plan_id = %s", (plan_id,))
         db.get_db().commit()
         cursor.close()
         
@@ -267,7 +267,7 @@ def get_food_logs():
         # Filter (members)
         member_id = request.args.get('member_id')
         
-        query = "SELECT * FROM food_log WHERE 1=1"
+        query = "SELECT * FROM FOOD_LOG WHERE 1=1"
         params = []
         
         if member_id:
@@ -301,7 +301,7 @@ def create_food_log():
         
         # Insert new food log
         query = """
-        INSERT INTO food_log (member_id, food, log_timestamp, portion_size, calories, proteins, carbs, fats)
+        INSERT INTO FOOD_LOG (member_id, food, log_timestamp, portion_size, calories, proteins, carbs, fats)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
@@ -337,7 +337,7 @@ def update_food_log(log_id):
         
         # Check if food log exists
         cursor = db.get_db().cursor()
-        cursor.execute("SELECT * FROM food_log WHERE log_id = %s", (log_id,))
+        cursor.execute("SELECT * FROM FOOD_LOG WHERE log_id = %s", (log_id,))
         if not cursor.fetchone():
             return jsonify({"error": "Food log not found"}), 404
         
@@ -355,7 +355,7 @@ def update_food_log(log_id):
             return jsonify({"error": "No valid fields to update"}), 400
         
         params.append(log_id)
-        query = f"UPDATE food_log SET {', '.join(update_fields)} WHERE log_id = %s"
+        query = f"UPDATE FOOD_LOG SET {', '.join(update_fields)} WHERE log_id = %s"
         
         cursor.execute(query, params)
         db.get_db().commit()
@@ -370,7 +370,7 @@ def update_food_log(log_id):
 def delete_food_log(log_id):
     try:
         cursor = db.get_db().cursor()
-        cursor.execute("DELETE FROM food_log WHERE log_id = %s", (log_id,))
+        cursor.execute("DELETE FROM FOOD_LOG WHERE log_id = %s", (log_id,))
         db.get_db().commit()
         cursor.close()
         
