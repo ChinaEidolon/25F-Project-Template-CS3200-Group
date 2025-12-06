@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(format='%(filename)s:%(lineno)s:%(levelname)s -- %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-BASE_URL = "http://localhost:4000"
+BASE_URL = "http://api:4000"
 
 st.title("Nutritionist Progress Dashboard")
 

@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 
-BASE_URL = "http://localhost:4000"   
+BASE_URL = "http://api:4000"   
 
 st.title("Nutritionist Meal Plans")
 
@@ -16,7 +16,7 @@ def get_active_members():
             return r.json()
         return []
     except Exception:
-        return []
+        return {"error": str(e)}
 
 members = get_active_members()
 if not members:
@@ -40,7 +40,7 @@ st.markdown(f"### Meal Plans for {format_member(selected_member)}")
 # Get meal plans for member 
 def load_meal_plans(member_id: int):
     try:
-        r = requests.get(f"{BASE_URL}/meal-plans", params={"member_id": member_id})
+        r = requests.get(f"{BASE_URL}/nutritionists/meal-plans", params={"member_id": member_id})
         if r.status_code == 200:
             return r.json()
         else:
@@ -48,7 +48,7 @@ def load_meal_plans(member_id: int):
             return []
     except Exception as e:
         st.error(f"Error loading meal plans: {e}")
-        return []
+        return {"error": str(e)}
 
 plans = load_meal_plans(member_id)
 

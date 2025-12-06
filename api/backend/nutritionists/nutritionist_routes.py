@@ -139,7 +139,7 @@ def get_meal_plans():
             query += " AND member_id = %s"
             params.append(member_id)
         
-        query += " ORDER BY plan_date DESC"
+        query += " ORDER BY date DESC"
         
         cursor.execute(query, params)
         plans = cursor.fetchall()

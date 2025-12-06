@@ -7,7 +7,7 @@ from flask import current_app
 members = Blueprint('members', __name__)
 
 # GET all members (filtered by status, trainer, or nutritionist)
-@members.route('/members', methods=['GET'])
+@members.route('/', methods=['GET'])
 def get_all_members():
     try:
         print("error check in member_routes.py")
