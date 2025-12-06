@@ -5,8 +5,6 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 from backend.db_connection import db
-from backend.simple.simple_routes import simple_routes
-from backend.ngos.ngo_routes import ngos
 from backend.members.member_routes import members
 from backend.nutritionists.nutritionist_routes import nutritionists
 
