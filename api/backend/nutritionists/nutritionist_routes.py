@@ -7,7 +7,7 @@ from flask import current_app
 nutritionists = Blueprint('nutritionists', __name__)
 
 # GET all nutritionists 
-@nutritionists.route('/nutritionists', methods=['GET'])
+@nutritionists.route('/', methods=['GET'])
 def get_all_nutritionists():
     try:
         current_app.logger.info('Starting get_all_nutritionists request')
@@ -48,7 +48,7 @@ def get_nutritionist(nutritionist_id):
 
 # POST - Create new nutritionist profile
 # Required fields: first_name, last_name
-@nutritionists.route('/nutritionists', methods=['POST'])
+@nutritionists.route('/', methods=['POST'])
 def create_nutritionist():
     try:
         data = request.get_json()

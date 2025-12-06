@@ -26,6 +26,8 @@ with st.form("log_workout_form"):
             "notes": notes,
             "sessions": sessions
         }
+
+
         r = requests.post(f"{BASE_URL}/members/{member_id}/workout-logs", json=payload)
         
         if r.status_code == 201:

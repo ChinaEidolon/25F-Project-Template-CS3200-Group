@@ -9,7 +9,7 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     ports:
-      - 8502:8501
+      - 8501:8501
 
   api:
     build: ./api
@@ -19,7 +19,7 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     ports:
-      - 4001:4000
+      - 4000:4000
 
   db:
     env_file:
@@ -31,7 +31,7 @@ services:
       - "./database-files:/docker-entrypoint-initdb.d/:ro"
       - "mysql_data:/var/lib/mysql"
     ports:
-      - 3201:3306
+      - 3200:3306
 
 volumes:
   mysql_data:
