@@ -10,6 +10,7 @@ members = Blueprint('members', __name__)
 @members.route('/members', methods=['GET'])
 def get_all_members():
     try:
+        print("error check in member_routes.py")
         current_app.logger.info('Starting get_all_members request')
         cursor = db.get_db().cursor()
         
@@ -21,7 +22,7 @@ def get_all_members():
         current_app.logger.debug(f'Query parameters - status: {status}, trainer_id: {trainer_id}, nutritionist_id: {nutritionist_id}')
 
         # Prepare the Base query
-        query = "SELECT * FROM gym_member WHERE 1=1"
+        query = "SELECT * FROM GYM_MEMBER WHERE 1=1"
         params = []
         
         # Add filters
