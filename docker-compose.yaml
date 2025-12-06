@@ -1,5 +1,9 @@
 name: project-app-team-repo
 
+
+
+
+
 services:
   app:
     build: ./app
@@ -11,15 +15,22 @@ services:
     ports:
       - 8501:8501
 
-  api:
+
+
+
+  api: 
     build: ./api
     container_name: web-api
     hostname: web-api
     volumes: ["./api:/apicode"]
-    environment:
+    environment:      
       - WATCHPACK_POLLING=true
     ports:
       - 4000:4000
+
+
+
+
 
   db:
     env_file:
@@ -32,3 +43,7 @@ services:
       - "mysql_data:/var/lib/mysql"
     ports:
       - 3200:3306
+
+
+
+
