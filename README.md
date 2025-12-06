@@ -131,3 +131,42 @@ _Note_: This project only contains the infrastructure for a hypothetical ML mode
    - We've put a sample (read _fake_) ML model in the `model01.py` file. The `predict` function will be called by the Flask REST API to perform '_real-time_' prediction based on model parameter values that are stored in the database. **Important**: you would never want to hard code the model parameter weights directly in the prediction function.
 1. The prediction route for the REST API is in `api/backend/customers/customer_routes.py`. Basically, it accepts two URL parameters and passes them to the `prediction` function in the `ml_models` module. The `prediction` route/function packages up the value(s) it receives from the model's `predict` function and send its back to Streamlit as JSON.
 1. Back in streamlit, check out `app/src/pages/11_Prediction.py`. Here, I create two numeric input fields. When the button is pressed, it makes a request to the REST API URL `/c/prediction/.../...` function and passes the values from the two inputs as URL parameters. It gets back the results from the route and displays them. Nothing fancy here.
+
+# SOMA - Fitness & Nutrition Management Platform
+
+## Team Members
+**Team SELECT**
+- Victoria Charry (charry.vi@northeastern.edu) - Point Person
+- Sonali Chainani (chainani.s@northeastern.edu)
+- Zayda Kodua (kodua.z@northeastern.edu)
+- Hengrui Liang (liang.hen@northeastern.edu)
+
+## Project Overview
+
+SOMA is a fitness and nutrition management platform designed to centralize health and performance data for gyms and their communities. The platform serves four key user groups:
+
+- **Gym Members** - Track workouts, set goals, monitor progress, schedule classes, and communicate with trainers
+- **Personal Trainers** - Manage client profiles, create workout plans, track client progress, schedule sessions, and handle billing
+- **Nutritionists** - Design meal plans, monitor food logs, track body composition changes, and coordinate with trainers
+- **Gym Managers** - Access analytics dashboards for membership trends, revenue tracking, equipment usage, and class performance
+
+## Accessing the Application
+- **MySQL Database**: localhost:3306
+  - Username: root
+  - Password: t3ams3l3ct
+
+## Using the Application
+1. . On the home page, select a user role to log in as:
+   - Gym Member (Stephanie Huang)
+   - Personal Trainer (Jade Smith)
+   - Gym Manager (Jack Perez)
+   - Nutritionist (Sofia Martinez)
+2. . Each role provides access to different features and pages relevant to that persona
+
+## Contributing
+
+This project is developed as part of CS 3200 - Introduction to Databases at Northeastern University, Fall 2025.
+
+**Course**: CS 3200 - Introduction to Databases   
+**Semester**: Fall 2025  
+**Instructor**: Dr. Fontenot
