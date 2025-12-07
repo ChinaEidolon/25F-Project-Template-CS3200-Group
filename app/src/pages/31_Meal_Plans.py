@@ -1,21 +1,25 @@
 import streamlit as st
 import requests
 import pandas as pd
+from modules.nav import SideBarLinks
 
-BASE_URL = "http://localhost:4000"   
+st.set_page_config(layout='wide')
+SideBarLinks()
+
+BASE_URL = "http://api:4000"
 
 st.title("Nutritionist Meal Plans")
-
 
 # Get active members
 @st.cache_data
 def get_active_members():
     try:
-        r = requests.get(f"{BASE_URL}/members", params={"status": "active"})
+        r = requests.get(f"{BASE_URL}/members/members", params={"status": "active"})
         if r.status_code == 200:
             return r.json()
         return []
-    except Exception:
+    except Exception as e:
+        st.error(f"Error: {e}")
         return []
 
 members = get_active_members()
@@ -23,7 +27,7 @@ if not members:
     st.warning("No active members found or failed to load members.")
     st.stop()
 
-# Build  label for dropdown
+# Build label for dropdown
 def format_member(m):
     return f"{m.get('first_name', '')} {m.get('last_name', '')} (ID {m.get('member_id')})"
 
@@ -40,7 +44,7 @@ st.markdown(f"### Meal Plans for {format_member(selected_member)}")
 # Get meal plans for member 
 def load_meal_plans(member_id: int):
     try:
-        r = requests.get(f"{BASE_URL}/meal-plans", params={"member_id": member_id})
+        r = requests.get(f"{BASE_URL}/nutritionists/meal-plans", params={"member_id": member_id})
         if r.status_code == 200:
             return r.json()
         else:
@@ -77,12 +81,17 @@ with st.form("create_meal_plan_form"):
             "plan_date": str(plan_date),
         }
         try:
-            r = requests.post(f"{BASE_URL}/meal-plans", json=payload)
+            r = requests.post(f"{BASE_URL}/nutritionists/meal-plans", json=payload)
             if r.status_code == 201:
                 st.success("Meal plan created successfully!")
-                st.cache_data.clear()  # clear cached data if using caching elsewhere
+                st.balloons()
+                st.cache_data.clear()
+                import time
+                time.sleep(1)
+                st.rerun()
             else:
                 st.error(f"Failed to create meal plan. Status: {r.status_code}")
+                st.error(f"Response: {r.text}")
         except Exception as e:
             st.error(f"Error creating meal plan: {e}")
 
@@ -91,7 +100,8 @@ st.divider()
 # Update / Delete existing meal plan 
 if plans:
     st.subheader("Update or Delete Existing Meal Plan")
-    plan_options = {f"Plan {p['plan_id']} – {p.get('plan_date')}": p for p in plans}
+    
+    plan_options = {f"Plan {p['plan_id']} – {p.get('date')}": p for p in plans}
     plan_label = st.selectbox("Select a plan:", list(plan_options.keys()))
     selected_plan = plan_options[plan_label]
 
@@ -99,7 +109,7 @@ if plans:
         edit_calories = st.number_input(
             "Calorie Goal",
             min_value=0,
-            value=selected_plan.get("calorie_goals", 0),
+            value=int(selected_plan.get("calorie_goals", 0)),
             key="edit_calories",
         )
         edit_macro = st.text_area(
@@ -109,8 +119,8 @@ if plans:
         )
         edit_date = st.date_input(
             "Plan Date",
-            value=pd.to_datetime(selected_plan.get("plan_date")).date()
-            if selected_plan.get("plan_date")
+            value=pd.to_datetime(selected_plan.get("date")).date()
+            if selected_plan.get("date")
             else pd.Timestamp.today().date(),
             key="edit_date",
         )
@@ -125,27 +135,30 @@ if plans:
             payload = {
                 "calorie_goals": edit_calories,
                 "macro_goals": edit_macro,
-                "plan_date": str(edit_date),
+                "date": str(edit_date),  
             }
             try:
                 r = requests.put(
-                    f"{BASE_URL}/meal-plans/{selected_plan['plan_id']}",
+                    f"{BASE_URL}/nutritionists/meal-plans/{selected_plan['plan_id']}",
                     json=payload,
                 )
                 if r.status_code == 200:
                     st.success("Meal plan updated successfully!")
+                    st.rerun()
                 else:
                     st.error(f"Failed to update meal plan. Status: {r.status_code}")
+                    st.error(f"Response: {r.text}")
             except Exception as e:
                 st.error(f"Error updating meal plan: {e}")
 
         if delete_btn:
             try:
                 r = requests.delete(
-                    f"{BASE_URL}/meal-plans/{selected_plan['plan_id']}"
+                    f"{BASE_URL}/nutritionists/meal-plans/{selected_plan['plan_id']}"
                 )
                 if r.status_code == 200:
                     st.success("Meal plan deleted.")
+                    st.rerun()
                 else:
                     st.error(f"Failed to delete meal plan. Status: {r.status_code}")
             except Exception as e:

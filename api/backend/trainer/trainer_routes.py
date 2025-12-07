@@ -7,7 +7,7 @@ from flask import current_app
 trainers = Blueprint('trainers', __name__)
 
 # GET all trainers
-@trainers.route('/trainers', methods=['GET'])
+@trainers.route('/', methods=['GET'])
 def get_all_trainers():
     try:
         current_app.logger.info('Starting get_all_trainers request')
@@ -36,7 +36,7 @@ def get_all_trainers():
         return jsonify({"error": str(e)}), 500
 
 # GET specific trainer profile
-@trainers.route('/trainers/<int:trainer_id>', methods=['GET'])
+@trainers.route('/<int:trainer_id>', methods=['GET'])
 def get_trainer(trainer_id):
     try:
         cursor = db.get_db().cursor()
@@ -53,7 +53,7 @@ def get_trainer(trainer_id):
         return jsonify({"error": str(e)}), 500
 
 # POST - Create new trainer
-@trainers.route('/trainers', methods=['POST'])
+@trainers.route('/', methods=['POST'])
 def create_trainer():
     try:
         data = request.get_json()
@@ -83,7 +83,7 @@ def create_trainer():
         return jsonify({"error": str(e)}), 500
 
 # PUT - Update trainer information
-@trainers.route('/trainers/<int:trainer_id>', methods=['PUT'])
+@trainers.route('/<int:trainer_id>', methods=['PUT'])
 def update_trainer(trainer_id):
     try:
         data = request.get_json()
@@ -117,7 +117,7 @@ def update_trainer(trainer_id):
         return jsonify({"error": str(e)}), 500
 
 # GET all clients for a specific trainer
-@trainers.route('/trainers/<int:trainer_id>/clients', methods=['GET'])
+@trainers.route('/<int:trainer_id>/clients', methods=['GET'])
 def get_trainer_clients(trainer_id):
     try:
         cursor = db.get_db().cursor()
@@ -136,7 +136,7 @@ def get_trainer_clients(trainer_id):
         return jsonify({"error": str(e)}), 500
 
 # GET specific client profile
-@trainers.route('/trainers/<int:trainer_id>/clients/<int:client_id>', methods=['GET'])
+@trainers.route('/<int:trainer_id>/clients/<int:client_id>', methods=['GET'])
 def get_client_profile(trainer_id, client_id):
     try:
         cursor = db.get_db().cursor()
@@ -160,7 +160,7 @@ def get_client_profile(trainer_id, client_id):
         return jsonify({"error": str(e)}), 500
 
 # PUT - Update client profile
-@trainers.route('/trainers/<int:trainer_id>/clients/<int:client_id>', methods=['PUT'])
+@trainers.route('/<int:trainer_id>/clients/<int:client_id>', methods=['PUT'])
 def update_client_profile(trainer_id, client_id):
     try:
         data = request.get_json()
@@ -197,7 +197,7 @@ def update_client_profile(trainer_id, client_id):
         return jsonify({"error": str(e)}), 500
 
 # GET workout plans created by trainer
-@trainers.route('/trainers/<int:trainer_id>/workout-plans', methods=['GET'])
+@trainers.route('/<int:trainer_id>/workout-plans', methods=['GET'])
 def get_trainer_workout_plans(trainer_id):
     try:
         cursor = db.get_db().cursor()
@@ -227,7 +227,7 @@ def get_trainer_workout_plans(trainer_id):
         return jsonify({"error": str(e)}), 500
 
 # POST - Create workout plan
-@trainers.route('/trainers/<int:trainer_id>/workout-plans', methods=['POST'])
+@trainers.route('/<int:trainer_id>/workout-plans', methods=['POST'])
 def create_trainer_workout_plan(trainer_id):
     try:
         data = request.get_json()
@@ -307,7 +307,7 @@ def update_trainer_workout_plan(plan_id):
         return jsonify({"error": str(e)}), 500
 
 # GET workout logs for trainer's clients
-@trainers.route('/trainers/<int:trainer_id>/workout-logs', methods=['GET'])
+@trainers.route('/<int:trainer_id>/workout-logs', methods=['GET'])
 def get_trainer_workout_logs(trainer_id):
     try:
         cursor = db.get_db().cursor()
@@ -337,7 +337,7 @@ def get_trainer_workout_logs(trainer_id):
         return jsonify({"error": str(e)}), 500
 
 # POST - Record workout log
-@trainers.route('/trainers/<int:trainer_id>/workout-logs', methods=['POST'])
+@trainers.route('/<int:trainer_id>/workout-logs', methods=['POST'])
 def create_trainer_workout_log(trainer_id):
     try:
         data = request.get_json()
@@ -432,7 +432,7 @@ def delete_workout_log(log_id):
         return jsonify({"error": str(e)}), 500
 
 # GET sessions for a trainer
-@trainers.route('/trainers/<int:trainer_id>/sessions', methods=['GET'])
+@trainers.route('/<int:trainer_id>/sessions', methods=['GET'])
 def get_trainer_sessions(trainer_id):
     try:
         cursor = db.get_db().cursor()
@@ -467,7 +467,7 @@ def get_trainer_sessions(trainer_id):
         return jsonify({"error": str(e)}), 500
 
 # POST - Create session
-@trainers.route('/trainers/<int:trainer_id>/sessions', methods=['POST'])
+@trainers.route('/<int:trainer_id>/sessions', methods=['POST'])
 def create_session(trainer_id):
     try:
         data = request.get_json()
@@ -558,7 +558,7 @@ def cancel_session(session_id):
         return jsonify({"error": str(e)}), 500
 
 # GET invoices for trainer
-@trainers.route('/trainers/<int:trainer_id>/invoices', methods=['GET'])
+@trainers.route('/<int:trainer_id>/invoices', methods=['GET'])
 def get_trainer_invoices(trainer_id):
     try:
         cursor = db.get_db().cursor()
@@ -588,7 +588,7 @@ def get_trainer_invoices(trainer_id):
         return jsonify({"error": str(e)}), 500
 
 # POST - Create invoice
-@trainers.route('/trainers/<int:trainer_id>/invoices', methods=['POST'])
+@trainers.route('/<int:trainer_id>/invoices', methods=['POST'])
 def create_invoice(trainer_id):
     try:
         data = request.get_json()

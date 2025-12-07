@@ -7,7 +7,7 @@ from flask import current_app
 nutritionists = Blueprint('nutritionists', __name__)
 
 # GET all nutritionists 
-@nutritionists.route('/nutritionists', methods=['GET'])
+@nutritionists.route('/', methods=['GET'])
 def get_all_nutritionists():
     try:
         current_app.logger.info('Starting get_all_nutritionists request')
@@ -48,7 +48,7 @@ def get_nutritionist(nutritionist_id):
 
 # POST - Create new nutritionist profile
 # Required fields: first_name, last_name
-@nutritionists.route('/nutritionists', methods=['POST'])
+@nutritionists.route('/', methods=['POST'])
 def create_nutritionist():
     try:
         data = request.get_json()
@@ -139,7 +139,7 @@ def get_meal_plans():
             query += " AND member_id = %s"
             params.append(member_id)
         
-        query += " ORDER BY plan_date DESC"
+        query += " ORDER BY date DESC"
         
         cursor.execute(query, params)
         plans = cursor.fetchall()
@@ -183,7 +183,7 @@ def create_meal_plan():
         
         # Insert new meal plan
         query = """
-        INSERT INTO MEAL_PLAN (member_id, calorie_goals, macro_goals, plan_date)
+        INSERT INTO MEAL_PLAN (member_id, calorie_goals, macro_goals, date)
         VALUES (%s, %s, %s, %s)
         """
         cursor.execute(
@@ -222,7 +222,7 @@ def update_meal_plan(plan_id):
         # Build update query 
         update_fields = []
         params = []
-        allowed_fields = ["calorie_goals", "macro_goals", "plan_date"]
+        allowed_fields = ["calorie_goals", "macro_goals", "date"]
         
         for field in allowed_fields:
             if field in data:
@@ -274,7 +274,7 @@ def get_food_logs():
             query += " AND member_id = %s"
             params.append(member_id)
         
-        query += " ORDER BY log_timestamp DESC"
+        query += " ORDER BY timestamp DESC"
         
         cursor.execute(query, params)
         logs = cursor.fetchall()
@@ -301,7 +301,7 @@ def create_food_log():
         
         # Insert new food log
         query = """
-        INSERT INTO FOOD_LOG (member_id, food, log_timestamp, portion_size, calories, proteins, carbs, fats)
+        INSERT INTO FOOD_LOG (member_id, food, timestamp, portion_size, calories, proteins, carbs, fats)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
         cursor.execute(

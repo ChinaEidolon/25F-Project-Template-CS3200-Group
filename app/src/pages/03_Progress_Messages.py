@@ -25,8 +25,8 @@ if progress.status_code == 200 and len(progress.json()) > 0:
     # Weight trend chart
     if "weight" in df and df["weight"].notna().any():
         fig, ax = plt.subplots()
-        df_sorted = df.sort_values("progress_date")
-        ax.plot(df_sorted["progress_date"], df_sorted["weight"])
+        df_sorted = df.sort_values("date")
+        ax.plot(df_sorted["date"], df_sorted["weight"])
         ax.set_title("Weight Trend")
         ax.set_xlabel("Date")
         ax.set_ylabel("Weight")

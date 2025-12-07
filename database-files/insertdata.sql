@@ -98,7 +98,7 @@ INSERT INTO GYM_MEMBER (first_name, last_name, trainer_id, nutritionist_id, stat
 ('Aiden',    'Phelps',   9, 10,'active');
 
 INSERT INTO PROGRESS (
-  member_id, progress_date, weight, body_fat_percentage, measurements, photos
+  member_id, date, weight, body_fat_percentage, measurements, photos
 ) VALUES
 (1, '2024-10-01', 182.0, 19.0, 'Chest: 42, Waist: 34, Arms: 15', '/photos/m1_20241001.jpg'),
 (1, '2024-11-01', 180.5, 18.5, 'Chest: 42, Waist: 33.5, Arms: 15', '/photos/m1_20241101.jpg'),
@@ -135,7 +135,7 @@ INSERT INTO PROGRESS (
 
 
 INSERT INTO FOOD_LOG (
-  member_id, food, log_timestamp, portion_size, calories, proteins, carbs, fats
+  member_id, food, timestamp, portion_size, calories, proteins, carbs, fats
 ) VALUES
 (1,  'Grilled Chicken Breast', '2024-11-20 12:30:00', '6 oz',   280, 53.0,  0.0,  6.2),
 (1,  'Brown Rice',             '2024-11-20 12:30:00', '1 cup',  216,  5.0, 45.0,  1.8),
@@ -168,7 +168,7 @@ INSERT INTO FOOD_LOG (
 (17, 'Protein Bar',            '2024-11-15 10:00:00', '1 bar',  210, 20.0, 23.0,  7.0),
 (18, 'Caesar Salad',           '2024-11-15 12:00:00', '1 bowl', 280, 10.0, 12.0, 20.0);
 
-INSERT INTO MEAL_PLAN (member_id, calorie_goals, macro_goals, plan_date) VALUES
+INSERT INTO MEAL_PLAN (member_id, calorie_goals, macro_goals, date) VALUES
 (1,  2500, 'Protein: 180g, Carbs: 250g, Fats: 70g', '2024-11-01'),
 (2,  1800, 'Protein: 120g, Carbs: 180g, Fats: 50g', '2024-11-01'),
 (3,  2800, 'Protein: 200g, Carbs: 280g, Fats: 80g', '2024-11-01'),
@@ -201,7 +201,7 @@ INSERT INTO MEAL_PLAN (member_id, calorie_goals, macro_goals, plan_date) VALUES
 (30, 2600, 'Protein: 185g, Carbs: 260g, Fats: 78g', '2024-11-01');
 
 
-INSERT INTO WORKOUT_PLAN (member_id, goals, plan_date) VALUES
+INSERT INTO WORKOUT_PLAN (member_id, goals, date) VALUES
 (1,  'Build muscle mass, increase strength in compound lifts', '2024-11-01'),
 (2,  'Tone muscles, improve cardiovascular endurance',         '2024-11-01'),
 (3,  'Powerlifting focused, increase 1RM on squat, bench, deadlift', '2024-11-01'),
@@ -267,7 +267,7 @@ INSERT INTO EXERCISE (category, sets, reps, weight) VALUES
 
 
 INSERT INTO WORKOUT_LOG (
-  member_id, trainer_id, workout_date, notes, sessions
+  member_id, trainer_id, date, notes, sessions
 ) VALUES
 (1,  1, '2024-11-20', 'Great session, hit new PR on bench press', 1),
 (2,  2, '2024-11-20', 'Focused on form, cardio endurance improving', 1),
@@ -300,7 +300,43 @@ INSERT INTO WORKOUT_LOG (
 (29, 8, '2024-11-10', 'Speed and agility drills plus light weights', 1),
 (30, 9, '2024-11-10', 'Powerbuilding session, heavy compounds', 1);
 
-INSERT INTO CLASS_SESSION (trainer_id, class_name, class_datetime, cost) VALUES
+
+
+INSERT INTO MESSAGE (member_id, trainer_id, content, message_timestamp, read_status) VALUES
+(1, 1, 'Hi! Can we reschedule my session next week?', '2024-11-20 10:30:00', 'read'),
+(1, 1, 'Great workout today, thanks for the tips!', '2024-11-19 15:45:00', 'read'),
+(2, 2, 'What should I eat before morning workouts?', '2024-11-18 08:00:00', 'unread'),
+(3, 1, 'My shoulder is feeling better, ready to lift heavier', '2024-11-17 14:20:00', 'read'),
+(1, 1, 'Can you send me that meal plan we discussed?', '2024-11-16 12:00:00', 'read'),
+(4, 3, 'Running late for our 3pm session, be there in 10 mins', '2024-11-20 14:50:00', 'read'),
+(5, 4, 'Thanks for adjusting my program, feeling much stronger', '2024-11-19 18:30:00', 'read'),
+(6, 5, 'Need to cancel Friday session, family emergency', '2024-11-19 09:15:00', 'read'),
+(7, 6, 'Question about proper squat form, can we review?', '2024-11-18 16:45:00', 'unread'),
+(8, 7, 'Hit my goal weight! Ready to focus on muscle building', '2024-11-18 11:20:00', 'read'),
+(9, 8, 'Knee is bothering me again, should I skip leg day?', '2024-11-17 07:30:00', 'read'),
+(10, 9, 'Can I get a copy of my workout plan?', '2024-11-17 13:00:00', 'unread'),
+(11, 10, 'Loved the new circuit training routine!', '2024-11-16 19:45:00', 'read'),
+(12, 1, 'What supplements do you recommend for recovery?', '2024-11-16 10:00:00', 'read'),
+(13, 2, 'Can we add more cardio to my routine?', '2024-11-15 15:30:00', 'read'),
+(14, 3, 'Need advice on pre-competition nutrition', '2024-11-15 08:45:00', 'unread'),
+(15, 4, 'Really struggling with motivation this week', '2024-11-14 20:15:00', 'read'),
+(16, 5, 'My protein intake - am I getting enough?', '2024-11-14 12:30:00', 'read'),
+(17, 6, 'Want to switch from evening to morning sessions', '2024-11-13 17:00:00', 'read'),
+(18, 7, 'That HIIT workout kicked my butt, more please!', '2024-11-13 14:20:00', 'read'),
+(19, 8, 'Lower back pain after deadlifts, is my form off?', '2024-11-12 09:30:00', 'unread'),
+(20, 9, 'Ready to increase weights on bench press', '2024-11-12 16:45:00', 'read'),
+(21, 10, 'Can we work on flexibility and mobility more?', '2024-11-11 11:15:00', 'read'),
+(22, 1, 'Traveling next week, can you send hotel workout?', '2024-11-11 19:00:00', 'read'),
+(23, 2, 'Finally nailed that pull-up! Thanks for your patience', '2024-11-10 15:30:00', 'read'),
+(24, 3, 'Need to reschedule all next week sessions', '2024-11-10 08:00:00', 'unread'),
+(25, 4, 'What are your thoughts on intermittent fasting?', '2024-11-09 13:45:00', 'read'),
+(26, 5, 'Feeling burnt out, should I take a rest week?', '2024-11-09 17:20:00', 'read'),
+(27, 6, 'Can we add yoga to my recovery days?', '2024-11-08 10:30:00', 'read'),
+(28, 7, 'Hit a new PR on squats today! 225lbs!', '2024-11-08 18:15:00', 'read'),
+(29, 8, 'Sleep has been terrible, affecting my workouts', '2024-11-07 07:45:00', 'unread'),
+(30, 9, 'Ready to train for a 5K, can you help?', '2024-11-07 14:00:00', 'read');
+
+INSERT INTO CLASS_SESSION (trainer_id, class_name, date, cost) VALUES
 (2,  'Yoga Flow',          '2024-11-25 09:00:00', 25.00),
 (1,  'HIIT Training',      '2024-11-25 18:00:00', 30.00),
 (3,  'Spin Class',         '2024-11-26 07:00:00', 20.00),
@@ -334,7 +370,7 @@ INSERT INTO CLASS_SESSION (trainer_id, class_name, class_datetime, cost) VALUES
 
 
 INSERT INTO INVOICE (
-  member_id, trainer_id, amount, date_issued, status, category, service_date
+  member_id, trainer_id, amount, date_issued, status, category, date
 ) VALUES
 (1,  1, 150.00, '2024-11-01', 'paid',    'Monthly Membership',        '2024-11-01'),
 (2,  2, 150.00, '2024-11-01', 'paid',    'Monthly Membership',        '2024-11-01'),

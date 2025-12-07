@@ -23,7 +23,7 @@ trainer_id = st.session_state['trainer_id']
 
 # Fetch trainer info
 try:
-    trainer_response = requests.get(f'http://api:4000/t/trainers/{trainer_id}')
+    trainer_response = requests.get(f'http://api:4000/trainers//{trainer_id}')
     if trainer_response.status_code == 200:
         trainer = trainer_response.json()
         st.write(f"## Hello, {trainer['first_name']} {trainer['last_name']}!")
@@ -39,7 +39,7 @@ col1, col2, col3 = st.columns(3)
 
 # Get active clients count
 try:
-    clients_response = requests.get(f'http://api:4000/t/trainers/{trainer_id}/clients')
+    clients_response = requests.get(f'http://api:4000/trainers/{trainer_id}/clients')
     if clients_response.status_code == 200:
         clients = clients_response.json()
         active_clients = [c for c in clients if c.get('status') == 'active']
@@ -54,7 +54,7 @@ try:
     week_from_now = today + timedelta(days=7)
     
     sessions_response = requests.get(
-        f'http://api:4000/t/trainers/{trainer_id}/sessions',
+        f'http://api:4000/trainers/{trainer_id}/sessions',
         params={
             'date_from': str(today),
             'date_to': str(week_from_now)
@@ -69,7 +69,7 @@ except:
 # Get pending invoices count
 try:
     invoices_response = requests.get(
-        f'http://api:4000/t/trainers/{trainer_id}/invoices',
+        f'http://api:4000/trainers/{trainer_id}/invoices',
         params={'status': 'pending'}
     )
     if invoices_response.status_code == 200:

@@ -1,20 +1,25 @@
 import streamlit as st
 import requests
 import pandas as pd
+from modules.nav import SideBarLinks
 
-BASE_URL = "http://localhost:4000"
+st.set_page_config(layout='wide')
+SideBarLinks()
+
+BASE_URL = "http://api:4000"
 
 st.title("Nutritionist Food Logs")
 
-#  Get active members 
+# Get active members 
 @st.cache_data
 def get_active_members():
     try:
-        r = requests.get(f"{BASE_URL}/members", params={"status": "active"})
+        r = requests.get(f"{BASE_URL}/members/members", params={"status": "active"})
         if r.status_code == 200:
             return r.json()
         return []
-    except Exception:
+    except Exception as e:
+        st.error(f"Error: {e}")
         return []
 
 members = get_active_members()
@@ -34,10 +39,10 @@ member_id = selected_member.get("member_id")
 
 st.markdown(f"### Food Logs for {format_member(selected_member)}")
 
-#  Load food logs 
+# Load food logs 
 def load_food_logs(member_id: int):
     try:
-        r = requests.get(f"{BASE_URL}/food-logs", params={"member_id": member_id})
+        r = requests.get(f"{BASE_URL}/nutritionists/food-logs", params={"member_id": member_id})
         if r.status_code == 200:
             return r.json()
         else:
@@ -51,15 +56,13 @@ logs = load_food_logs(member_id)
 
 if logs:
     df = pd.DataFrame(logs)
-    # Convert timestamp to datetime if present
-    if "log_timestamp" in df.columns:
-        df["log_timestamp"] = pd.to_datetime(df["log_timestamp"])
-        df = df.sort_values("log_timestamp", ascending=False)
+    if "timestamp" in df.columns:
+        df["timestamp"] = pd.to_datetime(df["timestamp"])
+        df = df.sort_values("timestamp", ascending=False)
     st.dataframe(df)
 
-    # Simple macro summary
     if all(col in df.columns for col in ["calories", "proteins", "carbs", "fats"]):
-        st.subheader("Daily Intake Summary (rough)")
+        st.subheader("Daily Intake Summary")
         summary = df[["calories", "proteins", "carbs", "fats"]].sum()
         st.write(summary)
 else:
@@ -67,7 +70,7 @@ else:
 
 st.divider()
 
-# ---- Log a new meal for the member ----
+# Log a new meal for the member
 st.subheader("Log a New Meal for This Member")
 
 with st.form("log_meal_form"):
@@ -93,13 +96,18 @@ with st.form("log_meal_form"):
                 "proteins": proteins,
                 "carbs": carbs,
                 "fats": fats,
-                "log_timestamp": str(log_time),
+                "log_timestamp": str(log_time),  
             }
             try:
-                r = requests.post(f"{BASE_URL}/food-logs", json=payload)
+                r = requests.post(f"{BASE_URL}/nutritionists/food-logs", json=payload)
                 if r.status_code == 201:
                     st.success("Meal logged successfully!")
+                    st.balloons()
+                    import time
+                    time.sleep(1)
+                    st.rerun()
                 else:
                     st.error(f"Failed to log meal. Status: {r.status_code}")
+                    st.error(f"Response: {r.text}")
             except Exception as e:
                 st.error(f"Error logging meal: {e}")

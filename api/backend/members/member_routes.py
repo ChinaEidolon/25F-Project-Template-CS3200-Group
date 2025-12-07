@@ -54,7 +54,7 @@ def get_member(member_id):
         cursor = db.get_db().cursor()
 
         # Get member details
-        query = "SELECT * FROM GYM_MEMBER WHERE member_id = %s"
+        query = "SELECT * FROM GYM WHERE member_id = %s"
         cursor.execute(query, (member_id,))
         member = cursor.fetchone()
         
@@ -276,7 +276,7 @@ def get_workout_logs(member_id):
         query = """
             SELECT * FROM WORKOUT_LOG
             WHERE member_id = %s 
-            ORDER BY workout_date DESC
+            ORDER BY date DESC
         """
         cursor.execute(query, (member_id,))
         logs = cursor.fetchall()
@@ -303,7 +303,7 @@ def create_workout_log(member_id):
         
         # Insert new workout log
         query = """
-        INSERT INTO WORKOUT_LOG (member_id, trainer_id, workout_date, notes, sessions)
+        INSERT INTO WORKOUT_LOG (member_id, trainer_id, date, notes, sessions)
         VALUES (%s, %s, %s, %s, %s)
         """
         cursor.execute(
@@ -338,7 +338,7 @@ def get_progress(member_id):
         query = """
             SELECT * FROM PROGRESS 
             WHERE member_id = %s 
-            ORDER BY progress_date DESC
+            ORDER BY date DESC
         """
         cursor.execute(query, (member_id,))
         progress = cursor.fetchall()
@@ -365,14 +365,14 @@ def create_progress(member_id):
         
         # Insert new progress entry
         query = """
-        INSERT INTO PROGRESS (member_id, progress_date, weight, body_fat_percentage, measurements, photos)
+        INSERT INTO PROGRESS (member_id, date, weight, body_fat_percentage, measurements, photos)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,
             (
                 member_id,
-                data["progress_date"],
+                data.get("progress_date"),
                 data.get("weight"),
                 data.get("body_fat_percentage"),
                 data.get("measurements"),
@@ -447,7 +447,7 @@ def delete_progress(progress_id):
 def get_workout_plans(member_id):
     try:
         cursor = db.get_db().cursor()
-        query = "SELECT * FROM WORKOUT_PLAN WHERE member_id = %s ORDER BY plan_date DESC"
+        query = "SELECT * FROM WORKOUT_PLAN WHERE member_id = %s ORDER BY date DESC"
         cursor.execute(query, (member_id,))
         plans = cursor.fetchall()
         cursor.close()
@@ -490,19 +490,18 @@ def create_workout_plan(member_id):
         
         # Insert new workout plan
         query = """
-        INSERT INTO WORKOUT_PLAN (member_id, plan_name, goals, plan_date, status)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO WORKOUT_PLAN (member_id, goals, date)
+        VALUES (%s, %s, %s)
         """
         cursor.execute(
             query,
             (
                 member_id,
-                data.get("plan_name"),
                 data["goals"],
-                data["plan_date"],
-                data.get("status", "active"),
+                data.get("plan_date"), 
             ),
         )
+
         
         db.get_db().commit()
         new_plan_id = cursor.lastrowid
