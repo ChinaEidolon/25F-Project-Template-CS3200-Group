@@ -23,7 +23,7 @@ with tab1:
     st.write("### Your Clients")
     
     try:
-        response = requests.get(f'http://api:4000/t/trainers/{trainer_id}/clients')
+        response = requests.get(f'http://api:4000/trainers/{trainer_id}/clients')
         
         if response.status_code == 200:
             clients = response.json()
@@ -49,7 +49,7 @@ with tab1:
                 
                 # Display table
                 st.dataframe(
-                    df[['member_id', 'first_name', 'last_name', 'email', 'status']],
+                    df[['member_id', 'first_name', 'last_name', 'status']],
                     use_container_width=True,
                     hide_index=True
                 )
@@ -69,7 +69,7 @@ with tab1:
                     
                     # Fetch detailed client info
                     detail_response = requests.get(
-                        f'http://api:4000/t/trainers/{trainer_id}/clients/{client_id}'
+                        f'http://api:4000/trainers/{trainer_id}/clients/{client_id}'
                     )
                     
                     if detail_response.status_code == 200:
@@ -122,7 +122,7 @@ with tab2:
                     st.json(new_client)
                     
                     response = requests.post(
-                        'http://api:4000/m/members',
+                        'http://api:4000/members/members',
                         json=new_client
                     )
                     
@@ -168,7 +168,7 @@ with tab3:
     
     try:
         # Get all clients for selection
-        response = requests.get(f'http://api:4000/t/trainers/{trainer_id}/clients')
+        response = requests.get(f'http://api:4000/trainers/{trainer_id}/clients')
         
         if response.status_code == 200:
             clients = response.json()
@@ -217,7 +217,7 @@ with tab3:
                                 }
                                 
                                 response = requests.put(
-                                    f'http://api:4000/t/trainers/{trainer_id}/clients/{client_id}',
+                                    f'http://api:4000/trainers/{trainer_id}/clients/{client_id}',
                                     json=update_data
                                 )
                                 

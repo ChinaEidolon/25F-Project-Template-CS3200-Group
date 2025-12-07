@@ -29,7 +29,7 @@ with tab1:
     
     # Get clients for filtering
     try:
-        clients_response = requests.get(f'http://api:4000/t/trainers/{trainer_id}/clients')
+        clients_response = requests.get(f'http://api:4000/trainers/{trainer_id}/clients')
         
         if clients_response.status_code == 200:
             clients = clients_response.json()
@@ -49,7 +49,7 @@ with tab1:
                 params['member_id'] = selected_client['member_id']
             
             logs_response = requests.get(
-                f'http://api:4000/t/trainers/{trainer_id}/workout-logs',
+                f'http://api:4000/trainers/{trainer_id}/workout-logs',
                 params=params
             )
             
@@ -117,7 +117,7 @@ with tab2:
     st.write("Log a completed workout session for your client")
     
     try:
-        clients_response = requests.get(f'http://api:4000/t/trainers/{trainer_id}/clients')
+        clients_response = requests.get(f'http://api:4000/trainers/{trainer_id}/clients')
         
         if clients_response.status_code == 200:
             clients = clients_response.json()
@@ -159,7 +159,7 @@ with tab2:
                                 }
                                 
                                 response = requests.post(
-                                    f'http://api:4000/t/trainers/{trainer_id}/workout-logs',
+                                    f'http://api:4000/trainers/{trainer_id}/workout-logs',
                                     json=new_log
                                 )
                                 
@@ -192,7 +192,7 @@ with tab3:
     st.write("Correct workout data or remove incorrect entries")
     
     try:
-        logs_response = requests.get(f'http://api:4000/t/trainers/{trainer_id}/workout-logs')
+        logs_response = requests.get(f'http://api:4000/trainers/{trainer_id}/workout-logs')
         
         if logs_response.status_code == 200:
             logs = logs_response.json()
