@@ -7,7 +7,7 @@ from flask import current_app
 members = Blueprint('members', __name__)
 
 # GET all members (filtered by status, trainer, or nutritionist)
-@members.route('/', methods=['GET'])
+@members.route('/members', methods=['GET'])
 def get_all_members():
     try:
         print("error check in member_routes.py")
@@ -48,13 +48,13 @@ def get_all_members():
         return jsonify({"error": str(e)}), 500
 
 # GET specific member profile
-@members.route('/members/<int:member_id>', methods=['GET'])
+@members.route('/<int:member_id>', methods=['GET'])
 def get_member(member_id):
     try:
         cursor = db.get_db().cursor()
 
         # Get member details
-        query = "SELECT * FROM GYM_MEMBER WHERE member_id = %s"
+        query = "SELECT * FROM GYM WHERE member_id = %s"
         cursor.execute(query, (member_id,))
         member = cursor.fetchone()
         
@@ -69,7 +69,7 @@ def get_member(member_id):
 # POST - Create new member
 # Required fields: first_name, last_name, email
 # Optional: trainer_id, nutritionist_id, status
-@members.route('/', methods=['POST'])
+@members.route('/members', methods=['POST'])
 def create_member():
     try:
         data = request.get_json()
@@ -276,10 +276,8 @@ def get_workout_logs(member_id):
         query = """
             SELECT * FROM WORKOUT_LOG
             WHERE member_id = %s 
-            ORDER BY workout_date DESC
+            ORDER BY date DESC
         """
-        current_app.logger.debug(f'woeifjowijowj Executing query: {query} with member_id: {member_id}')
-
         cursor.execute(query, (member_id,))
         logs = cursor.fetchall()
         cursor.close()
@@ -293,32 +291,21 @@ def get_workout_logs(member_id):
 @members.route('/<int:member_id>/workout-logs', methods=['POST'])
 def create_workout_log(member_id):
     try:
-        print("inside create_workout_log")
         data = request.get_json()
-        print("data:", data)
         
-        current_app.logger.info('1')
-
         # Validate required fields
         required_fields = ["workout_date"]
-        current_app.logger.info('2')
         for field in required_fields:
             if field not in data:
                 return jsonify({"error": f"Missing required field: {field}"}), 400
         
-        current_app.logger.info('3')
         cursor = db.get_db().cursor()
-
-        current_app.logger.info('4')
-
         
         # Insert new workout log
         query = """
         INSERT INTO WORKOUT_LOG (member_id, trainer_id, date, notes, sessions)
         VALUES (%s, %s, %s, %s, %s)
         """
-        current_app.logger.info('5')
-
         cursor.execute(
             query,
             (
@@ -330,8 +317,6 @@ def create_workout_log(member_id):
             ),
         )
         
-        current_app.logger.info('6')
-
         db.get_db().commit()
         new_log_id = cursor.lastrowid
         cursor.close()
@@ -353,7 +338,7 @@ def get_progress(member_id):
         query = """
             SELECT * FROM PROGRESS 
             WHERE member_id = %s 
-            ORDER BY progress_date DESC
+            ORDER BY date DESC
         """
         cursor.execute(query, (member_id,))
         progress = cursor.fetchall()
@@ -380,14 +365,14 @@ def create_progress(member_id):
         
         # Insert new progress entry
         query = """
-        INSERT INTO PROGRESS (member_id, progress_date, weight, body_fat_percentage, measurements, photos)
+        INSERT INTO PROGRESS (member_id, date, weight, body_fat_percentage, measurements, photos)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,
             (
                 member_id,
-                data["progress_date"],
+                data.get("progress_date"),
                 data.get("weight"),
                 data.get("body_fat_percentage"),
                 data.get("measurements"),
@@ -462,7 +447,7 @@ def delete_progress(progress_id):
 def get_workout_plans(member_id):
     try:
         cursor = db.get_db().cursor()
-        query = "SELECT * FROM WORKOUT_PLAN WHERE member_id = %s ORDER BY plan_date DESC"
+        query = "SELECT * FROM WORKOUT_PLAN WHERE member_id = %s ORDER BY date DESC"
         cursor.execute(query, (member_id,))
         plans = cursor.fetchall()
         cursor.close()
@@ -505,19 +490,18 @@ def create_workout_plan(member_id):
         
         # Insert new workout plan
         query = """
-        INSERT INTO WORKOUT_PLAN (member_id, plan_name, goals, plan_date, status)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO WORKOUT_PLAN (member_id, goals, date)
+        VALUES (%s, %s, %s)
         """
         cursor.execute(
             query,
             (
                 member_id,
-                data.get("plan_name"),
                 data["goals"],
-                data["plan_date"],
-                data.get("status", "active"),
+                data.get("plan_date"), 
             ),
         )
+
         
         db.get_db().commit()
         new_plan_id = cursor.lastrowid
@@ -606,7 +590,7 @@ def get_message(message_id):
 
 # POST - Send new message
 # Required fields: content
-@members.route('/<int:member_id>/messages', methods=['POST'])
+@members.route('/members/<int:member_id>/messages', methods=['POST'])
 def create_message(member_id):
     try:
         data = request.get_json()
