@@ -8,6 +8,8 @@ from backend.db_connection import db
 from backend.members.member_routes import members
 from backend.nutritionists.nutritionist_routes import nutritionists
 from backend.trainer.trainer_routes import trainers
+from backend.manager.manager_routes import managers
+
 
 def create_app():
     app = Flask(__name__)
@@ -50,8 +52,10 @@ def create_app():
     # and give a url prefix to each
     app.logger.info("create_app(): registering blueprints with Flask app object.")
     app.register_blueprint(members, url_prefix="/members")
+    app.register_blueprint(managers, url_prefix="/managers")
     app.register_blueprint(nutritionists, url_prefix="/nutritionists")
     app.register_blueprint(trainers, url_prefix="/trainers")
+
 
     # Don't forget to return the app object
     return app

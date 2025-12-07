@@ -44,6 +44,5 @@ services:
     ports:
       - 3200:3306
 
-
-
-
+volumes:
+  mysql_data:
