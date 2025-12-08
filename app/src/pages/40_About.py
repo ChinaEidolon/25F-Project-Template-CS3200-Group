@@ -10,9 +10,13 @@ st.markdown(
     """
     SOMA is a fitness and nutrition app for gyms that keeps everything in one place. 
     
+    
     Members can log workouts, track their progress, set goals, and schedule classes. 
+
     Trainers get a clear view of their clients' training history and can manage sessions and billing without juggling spreadsheets. 
+    
     Gym managers get dashboards showing membership trends, revenue, and which classes are actually getting used.
+   
     Nutritionists can create meal plans, monitor what members are eating, and see how it's affecting their results. 
     
     
