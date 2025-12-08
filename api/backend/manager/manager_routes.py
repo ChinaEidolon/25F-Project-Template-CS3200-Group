@@ -3,7 +3,7 @@ from backend.db_connection import db
 from mysql.connector import Error
 
 # Setting up the blueprint for manager-specific routes
-manager = Blueprint('manager', __name__)
+managers = Blueprint('managers', __name__)
 
 # --- Helper: Validates and extracts date range from query params ---
 def get_date_filters():
