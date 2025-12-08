@@ -211,25 +211,64 @@ def get_ngo_donors(ngo_id):
     except Error as e:
         return jsonify({"error": str(e)}), 500
 
+# Get the top 3 donors overall
 @ngos.route("/ngos/top-donors", methods=["GET"])
-def get_top_donors(ngo_id):
+def get_top_donors():
     try:
         cursor = db.get_db().cursor()
 
         cursor.execute("""
-                cursor.execute("SELECT
-                    Donor_Name,
-                    Donor_Type,
-                    Donation_Amount
-                    FROM Donors
-                    WHERE Donation_Amount IS NOT NULL
-                    ORDER BY Donation_Amount DESC
-                    LIMIT 3;")
+            SELECT
+                Donor_Name,
+                Donor_Type,
+                Donation_Amount
+            FROM Donors
+            WHERE Donation_Amount IS NOT NULL
+            ORDER BY Donation_Amount DESC
+            LIMIT 3
         """)
 
-        ngo = cursor.fetchall()
+        donors = cursor.fetchall()
+        cursor.close()
 
-        if not ngo:
-            return jsonify({"error": "No top donors found"}), 404
+        return jsonify(donors), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# Update the donation amount for a specific donor
+@ngos.route("/ngos/<int:donor_id>/donor-update", methods=["PUT"])
+def update_donor_amount(donor_id):
+    try:
+        data = request.get_json()
+    
+        required_fields = ["Donation_Amount"]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"error": f"Missing required field: {field}"}), 400
         
+        cursor = db.get_db().cursor()
+        cursor.execute("SELECT * FROM Donors WHERE Donor_ID = %s", (donor_id,))
+        if not cursor.fetchone():
+            return jsonify({"error": "Donor not found"}), 404
         
+        if not data["Donation_Amount"]:
+            return jsonify({"error": "Donation amount cannot be empty"}), 400
+
+        if data["Donation_Amount"] is None:
+            return jsonify({"error": "Donation amount cannot be None"}), 400
+
+        if data["Donation_Amount"] <= 0:
+            return jsonify({"error": "Donation amount must be greater than 0"}), 400
+
+
+        params = [data["Donation_Amount"], donor_id]
+        query = f"UPDATE Donors SET Donation_Amount = %s WHERE Donor_ID = %s"   
+
+        cursor.execut(query, params)
+        db.get_db().commit()
+        cursor.close()
+
+        return jsonify({"message": "Donation amount updated successfully"}), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
