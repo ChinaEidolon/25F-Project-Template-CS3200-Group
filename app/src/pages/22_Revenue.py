@@ -17,7 +17,7 @@ SideBarLinks()
 
 st.header("Revenue Analytics")
 
-API_BASE_URL = "http://localhost:4000"
+API_BASE_URL = "http://api:4000"
 
 
 today = date.today()

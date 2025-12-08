@@ -210,3 +210,26 @@ def get_ngo_donors(ngo_id):
         return jsonify(donors), 200
     except Error as e:
         return jsonify({"error": str(e)}), 500
+
+@ngos.route("/ngos/top-donors", methods=["GET"])
+def get_top_donors(ngo_id):
+    try:
+        cursor = db.get_db().cursor()
+
+        cursor.execute("""
+                cursor.execute("SELECT
+                    Donor_Name,
+                    Donor_Type,
+                    Donation_Amount
+                    FROM Donors
+                    WHERE Donation_Amount IS NOT NULL
+                    ORDER BY Donation_Amount DESC
+                    LIMIT 3;")
+        """)
+
+        ngo = cursor.fetchall()
+
+        if not ngo:
+            return jsonify({"error": "No top donors found"}), 404
+        
+        
