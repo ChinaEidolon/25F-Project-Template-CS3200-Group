@@ -4,16 +4,19 @@ from modules.nav import SideBarLinks
 
 SideBarLinks()
 
-st.write("# About this App")
+st.write("# About SOMA")
 
 st.markdown(
     """
-    This is a demo app for Data and Software in International Government and Politics Dialogue 2025 Project Course.  
-
-    The goal of this demo is to provide information on the tech stack 
-    being used as well as demo some of the features of the various platforms. 
-
-    Stay tuned for more information and features to come!
+    SOMA is a fitness and nutrition app for gyms that keeps everything in one place. 
+    
+    Members can log workouts, track their progress, set goals, and schedule classes. 
+    Trainers get a clear view of their clients' training history and can manage sessions and billing without juggling spreadsheets. 
+    Gym managers get dashboards showing membership trends, revenue, and which classes are actually getting used.
+    Nutritionists can create meal plans, monitor what members are eating, and see how it's affecting their results. 
+    
+    
+    The idea is simple: everyone—members, trainers, nutritionists, and managers—sees the same accurate data instead of dealing with scattered notes and conflicting information. Better data means better decisions and better results.
     """
 )
 
