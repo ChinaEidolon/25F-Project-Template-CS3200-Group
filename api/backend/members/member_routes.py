@@ -74,25 +74,24 @@ def create_member():
     try:
         data = request.get_json()
         
-        # Validate required fields
+        # Validate required fields (only first_name and last_name are required)
         required_fields = ["first_name", "last_name"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"error": f"Missing required field: {field}"}), 400
         
         cursor = db.get_db().cursor()
-        
+
         # Insert new member
         query = """
-        INSERT INTO GYM_MEMBER (first_name, last_name, email, trainer_id, nutritionist_id, status)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        INSERT INTO GYM_MEMBER (first_name, last_name, trainer_id, nutritionist_id, status)
+        VALUES (%s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,
             (
                 data["first_name"],
                 data["last_name"],
-                data["email"],
                 data.get("trainer_id"),
                 data.get("nutritionist_id"),
                 data.get("status", "active"),

@@ -94,6 +94,7 @@ with tab1:
     except Exception as e:
         st.error(f"Error loading clients: {str(e)}")
 
+
 # Tab 2: Add New Client
 with tab2:
     st.write("### Add New Client")
@@ -161,6 +162,11 @@ with tab2:
                     st.error(f"Error: {str(e)}")
             else:
                 st.error("Please fill in all required fields (marked with *)")
+
+
+
+
+
 
 # Tab 3: Update Client Profile
 with tab3:
