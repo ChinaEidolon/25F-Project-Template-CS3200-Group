@@ -26,7 +26,7 @@ def get_date_filters():
 
 
 # --- Endpoint: Revenue summary for the manager dashboard ---
-@manager.route('/manager/revenue/summary', methods=['GET'])
+@managers.route('/managers/revenue/summary', methods=['GET'])
 def fetch_revenue_summary():
     try:
         start_date, end_date, error = get_date_filters()
@@ -72,7 +72,7 @@ def fetch_revenue_summary():
 
 
 # --- Endpoint: Revenue grouped by each trainer ---
-@manager.route('/manager/revenue/by-trainer', methods=['GET'])
+@managers.route('/managers/revenue/by-trainer', methods=['GET'])
 def revenue_per_trainer():
     try:
         start_date, end_date, error = get_date_filters()
@@ -124,7 +124,7 @@ def revenue_per_trainer():
 
 
 # --- Endpoint: Class revenue trend over time (optionally by trainer) ---
-@manager.route('/manager/revenue/class-trend', methods=['GET'])
+@managers.route('/managers/revenue/class-trend', methods=['GET'])
 def class_revenue_over_time():
     try:
         start_date, end_date, error = get_date_filters()
