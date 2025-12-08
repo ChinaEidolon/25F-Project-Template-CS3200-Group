@@ -558,8 +558,8 @@ def get_member_messages(member_id):
         cursor = db.get_db().cursor()
         query = """
             SELECT m.*, t.first_name as trainer_first_name, t.last_name as trainer_last_name
-            FROM message m
-            LEFT JOIN trainer t ON m.trainer_id = t.trainer_id
+            FROM MESSAGE m
+            LEFT JOIN TRAINER t ON m.trainer_id = t.trainer_id
             WHERE m.member_id = %s
             ORDER BY m.message_timestamp DESC
         """
@@ -590,7 +590,7 @@ def get_message(message_id):
 
 # POST - Send new message
 # Required fields: content
-@members.route('/members/<int:member_id>/messages', methods=['POST'])
+@members.route('/<int:member_id>/messages', methods=['POST'])
 def create_message(member_id):
     try:
         data = request.get_json()
@@ -605,7 +605,7 @@ def create_message(member_id):
         
         # Insert new message
         query = """
-        INSERT INTO message (member_id, trainer_id, content, message_timestamp, read_status)
+        INSERT INTO MESSAGE (member_id, trainer_id, content, message_timestamp, read_status)
         VALUES (%s, %s, %s, NOW(), %s)
         """
         cursor.execute(
