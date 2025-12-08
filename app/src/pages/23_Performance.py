@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 
 # Just hardcoding this for now – ideally, this would come from a config
-API_ROOT = "http://localhost:4000"
+API_ROOT = "http://api:4000"
 
 st.title("Class Performance & Attendance Tracker")
 
