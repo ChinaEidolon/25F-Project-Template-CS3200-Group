@@ -266,7 +266,7 @@ with tab3:
                                 }
                                 
                                 response = requests.put(
-                                    f'http://api:4000/t/workout-logs/{log_id}',
+                                    f'http://api:4000/trainers/workout-logs/{log_id}',
                                     json=update_data
                                 )
                                 
@@ -291,7 +291,7 @@ with tab3:
                     with col1:
                         if st.button("🗑️ Delete This Log", type="secondary", use_container_width=True):
                             try:
-                                response = requests.delete(f'http://api:4000/t/workout-logs/{log_id}')
+                                response = requests.delete(f'http://api:4000/trainers/workout-logs/{log_id}')
                                 
                                 if response.status_code == 200:
                                     st.success("✅ Workout log deleted successfully!")
