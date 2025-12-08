@@ -60,7 +60,7 @@ with st.form("send_msg"):
             "content": content,
             "trainer_id": trainer_id if trainer_id else None
         }
-
+        # logger.info("payload: %s", payload)
         r = requests.post(f"{BASE_URL}/members/{member_id}/messages", json=payload)
 
         if r.status_code == 201:

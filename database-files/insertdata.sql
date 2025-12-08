@@ -1,7 +1,7 @@
 USE gym_management;
 
 INSERT INTO TRAINER (first_name, last_name) VALUES
-('Jade',     'Smith'),
+('John',     'Smith'),
 ('Sarah',    'Johnson'),
 ('Mike',     'Williams'),
 ('Laura',    'Miller'),
