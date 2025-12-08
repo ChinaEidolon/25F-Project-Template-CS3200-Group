@@ -34,8 +34,7 @@ SideBarLinks(show_home=True)
 
 # set the title of the page and provide a simple prompt. 
 logger.info("Loading the Home page of the app")
-st.title('SOMA')
-st.write('Gym Management Made Simple')
+st.title('SOMA: Gym Management')
 st.write('\n\n')
 # st.write('### Overview:')
 # st.write('\n')

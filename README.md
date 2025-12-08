@@ -35,6 +35,7 @@ SOMA is a fitness and nutrition management platform designed to centralize healt
    - Nutritionist (Sofia Martinez)
 2. Each role provides access to different features and pages relevant to that persona
 
+## Background
 This project is developed as part of CS 3200 - Introduction to Databases at Northeastern University, Fall 2025.
 
 **Course**: CS 3200 - Introduction to Databases   
