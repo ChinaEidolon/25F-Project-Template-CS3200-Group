@@ -576,7 +576,7 @@ def get_member_messages(member_id):
 def get_message(message_id):
     try:
         cursor = db.get_db().cursor()
-        query = "SELECT * FROM message WHERE message_id = %s"
+        query = "SELECT * FROM MESSAGE WHERE message_id = %s"
         cursor.execute(query, (message_id,))
         message = cursor.fetchone()
         cursor.close()
@@ -637,7 +637,7 @@ def update_message(message_id):
         
         # Check if message exists
         cursor = db.get_db().cursor()
-        cursor.execute("SELECT * FROM message WHERE message_id = %s", (message_id,))
+        cursor.execute("SELECT * FROM MESSAGE WHERE message_id = %s", (message_id,))
         if not cursor.fetchone():
             return jsonify({"error": "Message not found"}), 404
         
@@ -655,7 +655,7 @@ def update_message(message_id):
             return jsonify({"error": "No valid fields to update"}), 400
         
         params.append(message_id)
-        query = f"UPDATE message SET {', '.join(update_fields)} WHERE message_id = %s"
+        query = f"UPDATE MESSAGE SET {', '.join(update_fields)} WHERE message_id = %s"
         
         cursor.execute(query, params)
         db.get_db().commit()
