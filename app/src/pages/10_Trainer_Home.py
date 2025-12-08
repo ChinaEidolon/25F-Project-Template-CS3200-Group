@@ -26,7 +26,7 @@ try:
     trainer_response = requests.get(f'http://api:4000/trainers//{trainer_id}')
     if trainer_response.status_code == 200:
         trainer = trainer_response.json()
-        st.write(f"## Hello, {trainer['first_name']} {trainer['last_name']}!")
+        st.write(f"## Hello, {st.session_state['first_name']}!")
         if trainer.get('specialization'):
             st.write(f"**Specialization:** {trainer['specialization']}")
 except:
