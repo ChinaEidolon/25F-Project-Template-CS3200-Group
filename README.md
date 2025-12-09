@@ -9,6 +9,7 @@
 
 ## Pitch and Demo Video
 
+https://drive.google.com/file/d/1IJJUuq5JyCxS5jzwONXeTAYlXXQxFENZ/view
 
 ## Project Overview
 
@@ -19,7 +20,7 @@ SOMA is a fitness and nutrition management platform designed to centralize healt
    - **Nutritionists** - Design meal plans, monitor food logs, track body composition changes, and coordinate with trainers
    - **Gym Managers** - Access analytics dashboards for membership trends, revenue tracking, equipment usage, and class performance
 
-## Accessing the Application
+## Accessing the Application: .env file with docker compose up -d
   - SECRET KEY: someCrazyS3cR3T!Key.!
   - DB USER: root
   - DB HOST: db

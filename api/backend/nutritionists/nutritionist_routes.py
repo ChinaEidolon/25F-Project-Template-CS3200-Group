@@ -85,6 +85,25 @@ def create_nutritionist():
     except Error as e:
         return jsonify({"error": str(e)}), 500
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # PUT - Update nutritionist profile
 @nutritionists.route('/<int:nutritionist_id>', methods=['PUT'])
 def update_nutritionist(nutritionist_id):
@@ -149,6 +168,9 @@ def get_meal_plans():
     except Error as e:
         return jsonify({"error": str(e)}), 500
 
+
+
+
 # GET specific meal plan details
 @nutritionists.route('/meal-plans/<int:plan_id>', methods=['GET'])
 def get_meal_plan(plan_id):
@@ -165,6 +187,8 @@ def get_meal_plan(plan_id):
         return jsonify(plan), 200
     except Error as e:
         return jsonify({"error": str(e)}), 500
+
+
 
 # POST - Create new meal plan
 # Required fields: member_id, calorie_goals, plan_date
@@ -283,6 +307,7 @@ def get_food_logs():
         return jsonify(logs), 200
     except Error as e:
         return jsonify({"error": str(e)}), 500
+
 
 # POST - Create new food log entry
 # Required fields: member_id, food, log_timestamp
